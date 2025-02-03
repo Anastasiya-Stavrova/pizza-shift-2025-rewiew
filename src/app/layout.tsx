@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib";
 import { inter } from "./_constants";
+import { Providers } from "./_components";
 
 import "./globals.css";
 
@@ -20,7 +21,9 @@ export default function RootLayout({
         <link data-rh="true" rel="icon" href="/logo.svg" />
       </head>
       <body className={cn("h-full w-full", inter.className)}>
-        <main>{children}</main>
+        <main>
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );

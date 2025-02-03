@@ -1,7 +1,9 @@
 import { instance } from "@/api/instance";
 
 type PostPizzaPaymentParams = CreatePizzaPaymentDto;
-type PostPizzaPaymentRequestConfig = RequestConfig<PostPizzaPaymentParams>;
+
+export type PostPizzaPaymentRequestConfig =
+  RequestConfig<PostPizzaPaymentParams>;
 
 export const postPizzaPayment = async ({
   params,

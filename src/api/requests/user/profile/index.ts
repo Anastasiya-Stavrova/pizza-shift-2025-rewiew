@@ -2,9 +2,9 @@ import { instance } from "@/api/instance";
 
 export type PatchUserProfileRequestConfig = RequestConfig<UpdateProfileDto>;
 
-export async function patchUserProfile({
+export const patchUserProfile = async ({
   params,
   config,
-}: PatchUserProfileRequestConfig) {
+}: PatchUserProfileRequestConfig) => {
   return instance.patch<UpdateProfileResponse>("users/profile", params, config);
-}
+};

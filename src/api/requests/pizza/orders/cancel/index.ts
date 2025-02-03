@@ -1,7 +1,8 @@
 import { instance } from "@/api/instance";
 
 type PutCancelPizzaOrderParams = CancelPizzaOrderDto;
-type PutCancelPizzaOrderRequestConfig =
+
+export type PutCancelPizzaOrderRequestConfig =
   RequestConfig<PutCancelPizzaOrderParams>;
 
 export const putCancelPizzaOrder = async ({

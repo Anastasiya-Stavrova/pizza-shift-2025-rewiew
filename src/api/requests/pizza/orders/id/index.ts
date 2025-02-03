@@ -1,6 +1,6 @@
 import { instance } from "@/api/instance";
 
-type GetPizzaOrderByIdRequestConfig = RequestConfig<CancelPizzaOrderDto>;
+export type GetPizzaOrderByIdRequestConfig = RequestConfig<CancelPizzaOrderDto>;
 
 export const getPizzaOrderById = async ({
   params,

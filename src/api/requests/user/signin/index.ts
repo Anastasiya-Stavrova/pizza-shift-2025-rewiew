@@ -2,9 +2,9 @@ import { instance } from "@/api/instance";
 
 export type PostUserSigninRequestConfig = RequestConfig<SignInDto>;
 
-export async function postUsersSignin({
+export const postUsersSignin = async ({
   params,
   config,
-}: PostUserSigninRequestConfig) {
+}: PostUserSigninRequestConfig) => {
   return instance.post<SigninResponse>("users/signin", params, config);
-}
+};
