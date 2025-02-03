@@ -1,9 +1,3 @@
-import {
-  mapPizzaSizeToName,
-  mapPizzaIngredientsToName,
-  mapOrderStatusToDescription,
-} from "../src/constants";
-
 type PizzaSizeName = keyof typeof mapPizzaSizeToName;
 
 type PizzaIngredientName = keyof typeof mapPizzaIngredientsToName;
@@ -96,6 +90,34 @@ interface CancelPizzaOrderDto {
   orderId: string;
 }
 
+interface CreateOtpDto {
+  phone: string;
+}
+
+interface User {
+  phone: string;
+  firstname?: string;
+  middlename?: string;
+  lastname?: string;
+  email?: string;
+  city?: string;
+}
+
+interface UpdateProfileDto extends CreateOtpDto {
+  profile: {
+    firstname?: string;
+    middlename?: string;
+    lastname?: string;
+    email?: string;
+    city?: string;
+  };
+}
+
+interface SignInDto {
+  phone: string;
+  code: string;
+}
+
 interface BaseResponse {
   success: boolean;
   reason: string;
@@ -114,3 +136,18 @@ type PizzaOrdersResponse = BaseResponse & {
 };
 
 type PizzaOrderResponse = PizzaPaymentResponse;
+
+type OtpResponse = BaseResponse & {
+  retryDelay: number;
+};
+
+type SigninResponse = BaseResponse & {
+  user: User;
+  token: string;
+};
+
+type UpdateProfileResponse = BaseResponse & {
+  user: User;
+};
+
+type SessionResponse = UpdateProfileResponse;
