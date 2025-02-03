@@ -32,14 +32,6 @@ const mapOrderStatusToDescription = {
   4: "Заказ отменен",
 } as const;
 
-const mapOrderStatusToColor = {
-  0: "#FFB219",
-  1: "#E2A4FF",
-  2: "#4C94FF",
-  3: "#40BF7F",
-  4: "#F64C4C",
-} as const;
-
 const mapPizzaNameToSize = {
   Маленькая: "SMALL",
   Средняя: "MEDIUM",
