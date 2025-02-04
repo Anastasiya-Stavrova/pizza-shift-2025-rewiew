@@ -16,8 +16,8 @@ export const Header = () => {
   const isLogged = true;
 
   return (
-    <header className="sticky top-0 w-full h-fit bg-background border-b border-[#CED2DA] py-6 hidden sm:block">
-      <div className="w-full max-w-[960px] px-0 sm:px-8 lg:px-0 flex flex-row gap-8 items-center mx-auto">
+    <header className="sticky top-0 z-50 w-full h-fit bg-background border-b border-[#CED2DA] py-6 hidden sm:block">
+      <div className="custom-container gap-8 flex-row items-center">
         <Link href="/">
           <LogoIcon />
         </Link>

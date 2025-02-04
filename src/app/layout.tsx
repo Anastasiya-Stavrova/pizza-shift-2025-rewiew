@@ -1,15 +1,9 @@
-import type { Metadata } from "next";
-
 import { cn } from "@/lib";
 import { inter } from "./fonts/font";
 
 import { Providers, Header, BottomNav } from "./_components";
 
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "ШИФТ PIZZA",
-};
 
 export default function RootLayout({
   children,

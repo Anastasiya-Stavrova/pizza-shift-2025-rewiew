@@ -29,7 +29,7 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
     <>
       <div
         className={cn(
-          "flex sm:flex-col items-center justify-between gap-6 w-full px-4 sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px]",
+          "flex sm:flex-col items-center justify-start sm:justify-between gap-6 w-full px-4 sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px] mx-auto",
           className
         )}
         onClick={() => {
@@ -48,7 +48,6 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
               placeholder="blur"
               blurDataURL="/assets/images/pizza.png"
               style={{ objectFit: "contain" }}
-              className="size-full"
             />
           </div>
         </div>
