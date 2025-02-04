@@ -1,18 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Api } from "../api-client";
-import { PostAuthOtpRequestConfig } from "../requests/auth/otp";
+import {
+  patchUserProfile,
+  PatchUserProfileRequestConfig,
+} from "../requests/user";
 
-export const usePostAuthOtpMutation = (
+export const usePatchUserProfileMutation = (
   settings?: MutationSettings<
-    PostAuthOtpRequestConfig,
-    typeof Api.auth.postAuthOtp
+    PatchUserProfileRequestConfig,
+    typeof patchUserProfile
   >
 ) => {
   return useMutation({
-    mutationKey: ["postAuthOtp"],
+    mutationKey: ["patchUserProfile"],
     mutationFn: ({ params, config }) =>
-      Api.auth.postAuthOtp({
+      patchUserProfile({
         params,
         config: { ...settings?.config, ...config },
       }),

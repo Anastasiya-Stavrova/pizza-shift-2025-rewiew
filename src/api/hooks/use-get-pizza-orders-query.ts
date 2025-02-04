@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Api } from "../api-client";
+import { getPizzaOrders } from "../requests/pizza";
 
 export function useGetPizzaOrdersQuery(
-  settings?: QuerySettings<typeof Api.pizza.getPizzaOrders>
+  settings?: QuerySettings<typeof getPizzaOrders>
 ) {
   return useQuery({
     queryKey: ["getPizzaOrders"],
-    queryFn: () => Api.pizza.getPizzaOrders({ config: settings?.config }),
+    queryFn: () => getPizzaOrders({ config: settings?.config }),
     ...settings?.options,
   });
 }

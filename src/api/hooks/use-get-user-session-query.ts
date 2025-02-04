@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { Api } from "../api-client";
+
+import { getUserSession } from "../requests/user";
 
 export const useGetUsersSessionQuery = (
-  settings?: QuerySettings<typeof Api.user.getUserSession>
+  settings?: QuerySettings<typeof getUserSession>
 ) => {
   return useQuery({
     queryKey: ["getUserSession"],
-    queryFn: () => Api.user.getUserSession({ config: settings?.config }),
+    queryFn: () => getUserSession({ config: settings?.config }),
     ...settings?.options,
   });
 };

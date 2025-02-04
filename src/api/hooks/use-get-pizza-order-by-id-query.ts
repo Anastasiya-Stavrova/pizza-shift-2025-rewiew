@@ -1,17 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Api } from "../api-client";
+import { getPizzaOrderById } from "../requests/pizza";
 
 type GetPizzaOrderByIdParams = CancelPizzaOrderDto;
 
 export const useGetPizzaOrderByIdQuery = (
   params: GetPizzaOrderByIdParams,
-  settings?: QuerySettings<typeof Api.pizza.getPizzaOrderById>
+  settings?: QuerySettings<typeof getPizzaOrderById>
 ) => {
   return useQuery({
     queryKey: ["getPizzaOrderById", params],
-    queryFn: () =>
-      Api.pizza.getPizzaOrderById({ params, config: settings?.config }),
+    queryFn: () => getPizzaOrderById({ params, config: settings?.config }),
     ...settings?.options,
   });
 };

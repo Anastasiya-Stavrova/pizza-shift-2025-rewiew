@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib";
 import { inter } from "./fonts/font";
-import { Providers } from "./providers";
+
+import { Providers } from "./_components";
 
 import "./globals.css";
 
