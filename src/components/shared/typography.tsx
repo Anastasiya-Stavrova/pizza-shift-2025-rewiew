@@ -28,7 +28,7 @@ export const Typography = ({
     xs: "text-xs text-[#637083] font-normal",
     sm: "text-sm text-foreground font-normal",
     md: "text-base text-foreground font-normal",
-    lg: "text-xl text-foreground font-semibold",
+    lg: "text-xl text-[#292929] font-semibold",
     xl: "text-2xl text-foreground font-bold",
     "2xl": "",
   } as const;

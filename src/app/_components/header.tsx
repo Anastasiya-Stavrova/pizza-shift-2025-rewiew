@@ -17,7 +17,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 w-full h-fit bg-background border-b border-[#CED2DA] py-6 hidden sm:block">
-      <div className="container flex flex-row gap-8 items-center">
+      <div className="w-full max-w-[960px] px-0 sm:px-8 lg:px-0 flex flex-row gap-8 items-center mx-auto">
         <Link href="/">
           <LogoIcon />
         </Link>

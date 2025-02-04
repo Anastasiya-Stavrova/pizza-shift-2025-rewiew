@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { API_URL } from "@/constants";
+import { API_URL, COOKIES } from "@/constants";
+import { getCookie, isSSR } from "@/utils";
 
 export const instance = axios.create({
   baseURL: API_URL,
@@ -10,12 +11,17 @@ export const instance = axios.create({
   },
 });
 
-instance.interceptors.request.use(config => {
-  const token = localStorage.getItem("userToken");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+instance.interceptors.request.use(async config => {
+  let token: string | undefined;
+  if (isSSR) {
+    const cookies = (await import("next/headers")).cookies;
+    const cookieStore = cookies();
+    token = (await cookieStore).get(COOKIES.AUTH)?.value;
+  } else {
+    token = getCookie(COOKIES.AUTH);
   }
+
+  config.headers.Authorization = `Bearer ${token}`;
 
   return config;
 });

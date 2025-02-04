@@ -1,15 +1,13 @@
-import { BasketIcon, Button, Input, NavLink, PizzaIcon } from "@/components";
+import { Api } from "@/api";
+import { PizzaCard } from "./_components";
 
-import { useMedia } from "react-use";
+export default async function Home() {
+  const getPizzasCatalogResponse = await Api.pizza.getPizzasCatalog();
+  console.log(getPizzasCatalogResponse.data);
 
-export default function Home() {
   return (
-    <div className="w-[70px] mx-auto">
-      <div className="w-full h-[500px] bg-slate-400"></div>
-      <div className="w-full h-[500px] bg-slate-400"></div>
-      <div className="w-full h-[500px] bg-slate-400"></div>
-      <div className="w-full h-[500px] bg-slate-400"></div>
-      <div className="w-full h-[500px] bg-slate-400"></div>
+    <div className="w-full mx-auto">
+      <PizzaCard pizza={getPizzasCatalogResponse.data.catalog[0]} />
     </div>
   );
 }
