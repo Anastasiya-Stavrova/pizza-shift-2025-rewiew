@@ -12,7 +12,7 @@ interface NavLinkProps {
 export const NavLink = ({ children, text, href }: NavLinkProps) => {
   return (
     <Link href={href}>
-      <div className="h-[59px] sm:h-fit w-[90px] sm:w-fit flex flex-col sm:flex-row items-center justify-center gap-[2px] sm:gap-4 pt-[9px] pb-[10px] sm:p-0">
+      <div className="h-[59px] sm:h-fit w-[90px] sm:w-fit flex flex-col sm:flex-row items-center justify-center gap-[2px] sm:gap-4">
         {children}
         <Typography
           text={text}

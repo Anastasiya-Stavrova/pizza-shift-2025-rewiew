@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { cn } from "@/lib";
 import { inter } from "./fonts/font";
 
-import { Providers, Header } from "./_components";
+import { Providers, Header, BottomNav } from "./_components";
 
 import "./globals.css";
 
@@ -26,6 +26,7 @@ export default function RootLayout({
           <Providers>
             <Header />
             {children}
+            <BottomNav />
           </Providers>
         </main>
       </body>

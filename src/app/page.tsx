@@ -4,10 +4,12 @@ import { useMedia } from "react-use";
 
 export default function Home() {
   return (
-    <div className="w-full mx-auto p-10">
-      <NavLink text="Заказы" href={"/orders"}>
-        <BasketIcon />
-      </NavLink>
+    <div className="w-[70px] mx-auto">
+      <div className="w-full h-[500px] bg-slate-400"></div>
+      <div className="w-full h-[500px] bg-slate-400"></div>
+      <div className="w-full h-[500px] bg-slate-400"></div>
+      <div className="w-full h-[500px] bg-slate-400"></div>
+      <div className="w-full h-[500px] bg-slate-400"></div>
     </div>
   );
 }
