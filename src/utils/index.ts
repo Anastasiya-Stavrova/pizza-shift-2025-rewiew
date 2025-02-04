@@ -1,1 +1,1 @@
-export { isSSR } from "./isSSR";
+export { isSSR } from "./is-SSR";

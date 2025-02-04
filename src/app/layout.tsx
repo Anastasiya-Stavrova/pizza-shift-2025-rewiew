@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { cn } from "@/lib";
 import { inter } from "./fonts/font";
 
-import { Providers } from "./_components";
+import { Providers, Header } from "./_components";
 
 import "./globals.css";
 
@@ -23,7 +23,10 @@ export default function RootLayout({
       </head>
       <body className={cn("h-full w-full", inter.className)}>
         <main>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </main>
       </body>
     </html>
