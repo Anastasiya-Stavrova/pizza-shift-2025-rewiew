@@ -25,7 +25,7 @@ export const AuthContextProvider = ({
   const router = useRouter();
 
   const signin = React.useCallback(async (token: string) => {
-    setAuthToken(token => token);
+    setAuthToken(token);
     document.cookie = `authToken=${token}`;
 
     try {
@@ -42,20 +42,23 @@ export const AuthContextProvider = ({
   }, []);
 
   const logout = React.useCallback(() => {
-    setAuthToken(() => undefined);
-    setUser(() => undefined);
+    setAuthToken(undefined);
+    setUser(undefined);
     document.cookie = "authToken=";
     router.replace(ROUTES.ROOT);
     router.refresh();
   }, []);
 
-  const updateUser = React.useCallback(() => {
-    Api.user
-      .getUserSession({ config: { validateStatus: status => status < 600 } })
-      .then(data => {
-        setUser(data.data.user);
-        setAuthToken(getCookie("authToken"));
+  const updateUser = React.useCallback(async () => {
+    try {
+      const getUserSessionResponse = await Api.user.getUserSession({
+        config: { validateStatus: status => status < 600 },
       });
+      setUser(getUserSessionResponse.data.user);
+      setAuthToken(getCookie("authToken"));
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const value = React.useMemo(

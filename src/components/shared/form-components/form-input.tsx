@@ -37,7 +37,7 @@ export const FormInput = ({
   return (
     <div className={className}>
       {label && (
-        <p className="font-medium mb-2">
+        <p className="font-normal mb-2 text-sm">
           {label} {required && <RequiredSymbol />}
         </p>
       )}

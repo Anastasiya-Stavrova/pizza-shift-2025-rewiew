@@ -5,6 +5,5 @@ export const ROUTES = {
   ORDERS: "/orders",
   BASKET: "/basket",
   PAYMENT: "/payment",
-  PIZZA: (id: string) => `/${id}`,
-  PIZZA_ORDER: (id: string) => `${ROUTES.PIZZA(id)}/order`,
+  NEXT: "/_next/static/css/app/layout.css",
 } as const;
