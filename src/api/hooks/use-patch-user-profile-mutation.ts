@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import {
   patchUserProfile,
@@ -18,6 +19,17 @@ export const usePatchUserProfileMutation = (
         params,
         config: { ...settings?.config, ...config },
       }),
+    onError: error => {
+      console.log(error);
+      toast.error("Не удалось обновить профиль", {
+        icon: "❌",
+      });
+    },
+    onSuccess: () => {
+      toast.success("Профиль успешно обновлен!", {
+        icon: "🙎🏻‍♂️",
+      });
+    },
     ...settings?.options,
   });
 };

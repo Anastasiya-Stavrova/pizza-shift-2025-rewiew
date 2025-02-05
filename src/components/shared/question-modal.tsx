@@ -1,12 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { useMedia } from "react-use";
 
 import { cn } from "@/lib";
 import { ICONS } from "@/constants";
 
-import { Button, Dialog, DialogContent, DialogTitle, Typography } from "..";
-import { useMedia } from "react-use";
+import { ProfileForm } from "@/app/profile/_components";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  Typography,
+} from "..";
 
 interface QuestionModalProps {
   exitButtonText: string;
@@ -28,6 +42,38 @@ export const QuestionModal = ({
   onClickOpenChange,
 }: QuestionModalProps) => {
   const isSmallDevice = useMedia("(max-width: 640px)", true);
+
+  if (isSmallDevice) {
+    return (
+      <Drawer open={isOpen} onOpenChange={onClickOpenChange}>
+        <DrawerTitle className="hidden" />
+        <DrawerContent className={cn("w-full", className)}>
+          <div className="w-full h-full flex flex-col gap-[40px] items-center justify-between p-[40px] pt-0">
+            <div className="flex flex-col items-center justify-between gap-[16px]">
+              <Image
+                src={ICONS.QUESTION}
+                alt="Question"
+                width={80}
+                height={80}
+              />
+              <Typography
+                text={question}
+                size="lg"
+                className="text-[#3E3E3E]"
+              />
+            </div>
+
+            <div className="w-full max-w-[328px] flex flex-col items-center justify-between gap-[16px]">
+              <Button variant="secondary" onClick={onClickAgree}>
+                Отменить
+              </Button>
+              <Button onClick={onClickExit}>{exitButtonText}</Button>
+            </div>
+          </div>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClickOpenChange}>

@@ -3,7 +3,6 @@
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import toast from "react-hot-toast";
 
 import { useAuth, useAuthActions } from "@/context";
 import { profileSchema, ProfileSchemaFields } from "../_constants";
@@ -58,15 +57,7 @@ export const ProfileForm = () => {
         },
       });
       updateUser();
-      toast.success("Профиль успешно обновлен!", {
-        icon: "🙎🏻‍♂️",
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("Не удалось обновить профиль", {
-        icon: "❌",
-      });
-    }
+    } catch {}
   };
 
   return (
@@ -97,6 +88,7 @@ export const ProfileForm = () => {
             type="phone"
             placeholder="Телефон"
             required
+            disabled
           />
 
           <FormInput

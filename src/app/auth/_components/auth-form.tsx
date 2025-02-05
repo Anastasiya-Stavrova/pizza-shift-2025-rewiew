@@ -2,7 +2,6 @@
 
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
 import { useTimer } from "../_hooks";
 import { getAuthFormOptions } from "../_helpers";
@@ -31,27 +30,13 @@ export const AuthForm = () => {
 
   const form = useForm<AuthFields>(getAuthFormOptions(stage, phone));
 
-  const handleError = (error: unknown, isCode: boolean = false) => {
-    console.log(error);
-    toast.error(
-      isCode
-        ? "Не удалось войти"
-        : "Не удалось отправить сообщение на данный номер",
-      {
-        icon: "❌",
-      }
-    );
-  };
-
   const onSubmitPhone = async (phone: string): Promise<void> => {
     try {
       const { data } = await postAuthOtpMutation.mutateAsync({
         params: { phone: getNumbers(phone) },
       });
       setRetryDelay(data.retryDelay / 1000);
-    } catch (error) {
-      throw error;
-    }
+    } catch {}
   };
 
   const onSubmit = async (data: AuthFields) => {
@@ -60,9 +45,7 @@ export const AuthForm = () => {
         await onSubmitPhone(getNumbers(data.phone));
         setPhone(data.phone);
         setStage("OTP_STAGE");
-      } catch (error) {
-        handleError(error);
-      }
+      } catch {}
     } else if (data.code) {
       try {
         const { data: responseData } = await postUserSigninMutation.mutateAsync(
@@ -70,14 +53,8 @@ export const AuthForm = () => {
             params: { phone: getNumbers(data.phone), code: data.code },
           }
         );
-
         signin(responseData.token);
-        toast.success("Авторизация прошла успешно!", {
-          icon: "✅",
-        });
-      } catch (error) {
-        handleError(error, true);
-      }
+      } catch {}
     }
   };
 
@@ -127,9 +104,7 @@ export const AuthForm = () => {
                     onClick={() => {
                       try {
                         onSubmitPhone(phone);
-                      } catch (error) {
-                        handleError(error);
-                      }
+                      } catch {}
                     }}
                   >
                     <p className="text-[#344051] text-base font-semibold">
