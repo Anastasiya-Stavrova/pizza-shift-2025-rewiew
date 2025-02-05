@@ -1,5 +1,6 @@
 export const UserIcon = ({
   fill = "#141C24",
+  className,
   ...props
 }: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -10,6 +11,7 @@ export const UserIcon = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
+      className={className}
     >
       <path
         fillRule="evenodd"

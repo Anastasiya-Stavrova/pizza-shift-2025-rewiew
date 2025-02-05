@@ -1,5 +1,6 @@
 export const TimeIcon = ({
   fill = "#141C24",
+  className,
   ...props
 }: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -10,6 +11,7 @@ export const TimeIcon = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
+      className={className}
     >
       <path
         d="M15.9239 16.6951C16.2375 16.4099 16.2492 15.9204 15.9494 15.6207L12.7 12.3713V7.32129C12.7 6.90707 12.3642 6.57129 11.95 6.57129C11.5358 6.57129 11.2 6.90708 11.2 7.32129V12.5571C11.2 12.8223 11.3054 13.0766 11.4929 13.2642L14.8994 16.6707C15.1797 16.9509 15.6306 16.9617 15.9239 16.6951Z"

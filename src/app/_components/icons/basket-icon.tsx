@@ -1,5 +1,6 @@
 export const BasketIcon = ({
   fill = "#141C24",
+  className,
   ...props
 }: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -10,6 +11,7 @@ export const BasketIcon = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
+      className={className}
     >
       <path
         d="M2.85742 4.40234H4.5416C5.29396 4.40234 5.67014 4.40234 5.95336 4.60665C6.23658 4.81096 6.35549 5.16768 6.59331 5.88113L7.18136 7.6453"

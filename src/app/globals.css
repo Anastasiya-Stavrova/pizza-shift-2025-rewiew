@@ -72,3 +72,8 @@ main {
     @apply flex flex-col items-start justify-between w-full max-w-[960px] px-0 sm:px-8 lg:px-0 mx-auto;
   }
 }
+
+.active-icon path {
+  stroke: #f4511e;
+  fill: #f4511e;
+}

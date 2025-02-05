@@ -1,16 +1,18 @@
+import { cookies } from "next/headers";
+
 import { ROUTES } from "@/constants";
 
 import {
   NavLink,
-  UserIcon,
+  BasketIcon,
   PizzaIcon,
   SigninIcon,
   TimeIcon,
-  BasketIcon,
-} from "@/components";
+  UserIcon,
+} from ".";
 
-export const BottomNav = () => {
-  const isLogged = true;
+export const BottomNav = async () => {
+  const isLogged = (await cookies()).get("authToken")?.value ? true : false;
 
   return (
     <nav className="flex sm:hidden w-full bg-background items-center justify-between fixed bottom-0 border-t border-[#CED2DA]">

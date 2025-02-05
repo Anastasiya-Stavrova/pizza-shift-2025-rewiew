@@ -1,12 +1,18 @@
-"use client";
+import React from "react";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { PropsWithChildren } from "react";
+import { AuthContextProvider, QueryProvider } from "@/context";
+import { Api } from "@/api";
 
-const queryClient = new QueryClient();
+export const Providers = async ({ children }: React.PropsWithChildren) => {
+  const getUserSessionResponce = await Api.user.getUserSession({
+    config: { validateStatus: status => status < 600 },
+  });
 
-export const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryProvider>
+      <AuthContextProvider defaultUser={getUserSessionResponce.data.user}>
+        {children}
+      </AuthContextProvider>
+    </QueryProvider>
   );
 };

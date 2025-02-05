@@ -1,19 +1,20 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 import { cn } from "@/lib";
 import { ROUTES } from "@/constants";
 
 import {
+  NavLink,
   BasketIcon,
   LogoIcon,
-  NavLink,
   SigninIcon,
   TimeIcon,
   UserIcon,
-} from "@/components";
+} from ".";
 
-export const Header = () => {
-  const isLogged = true;
+export const Header = async () => {
+  const isLogged = (await cookies()).get("authToken")?.value ? true : false;
 
   return (
     <header className="sticky top-0 z-50 w-full h-fit bg-background border-b border-[#CED2DA] py-6 hidden sm:block">
