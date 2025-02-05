@@ -5,6 +5,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
 import { Api } from "@/api";
+import { BasketContextProvider } from "@/context/basket";
 
 export const Providers = async ({ children }: React.PropsWithChildren) => {
   const getUserSessionResponce = await Api.user.getUserSession({
@@ -14,7 +15,7 @@ export const Providers = async ({ children }: React.PropsWithChildren) => {
   return (
     <QueryProvider>
       <AuthContextProvider defaultUser={getUserSessionResponce.data.user}>
-        {children}
+        <BasketContextProvider>{children}</BasketContextProvider>
         <Toaster />
         <NextTopLoader />
       </AuthContextProvider>

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext } from "react";
+import React from "react";
 
 interface AuthContext {
   user: User | undefined;
@@ -15,12 +15,12 @@ interface AuthContextActions {
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContext>({
+export const AuthContext = React.createContext<AuthContext>({
   user: undefined,
   authToken: undefined,
 });
 
-export const AuthContextActions = createContext<AuthContextActions>({
+export const AuthContextActions = React.createContext<AuthContextActions>({
   setAuthToken: () => {},
   setUser: () => {},
   updateUser: () => {},

@@ -6,18 +6,13 @@ import { useMedia } from "react-use";
 import { cn } from "@/lib";
 import { ICONS } from "@/constants";
 
-import { ProfileForm } from "@/app/profile/_components";
 import {
   Button,
   Dialog,
   DialogContent,
   DialogTitle,
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
   DrawerTitle,
   Typography,
 } from "..";

@@ -71,6 +71,12 @@ main {
   .custom-container {
     @apply flex flex-col items-start justify-between w-full max-w-[960px] px-0 sm:px-8 lg:px-0 mx-auto;
   }
+  .help-text-container {
+    @apply flex items-center justify-between gap-3;
+  }
+  .help-text {
+    @apply text-[13px] text-white font-medium;
+  }
 }
 
 #nprogress .bar {
@@ -87,4 +93,30 @@ main {
 
 .active-icon path {
   stroke: #f4511e;
+}
+
+.item-shadow {
+  box-shadow: 0px 4px 12px 0px #1a1a1e26;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background: #fff;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #ced2da;
+  border-radius: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ced2da;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

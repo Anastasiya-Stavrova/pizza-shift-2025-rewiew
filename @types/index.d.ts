@@ -15,7 +15,7 @@ interface PizzaDough {
 }
 
 interface OrderedPizzaIngredient {
-  name: IngredientName;
+  name: PizzaIngredientName;
   cost: number;
 }
 

@@ -8,7 +8,7 @@ import { API_URL } from "@/constants";
 import { getMinPizzaPrice } from "../_helpers";
 import { cn } from "@/lib";
 
-import { Button, Typography } from "@/components";
+import { Button, PizzaModal, Typography } from "@/components";
 
 interface PizzaCardProps {
   pizza: Pizza;
@@ -22,14 +22,14 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
 
   const toggleDialog = () => {
     setIsOpenDialog(!isOpenDialog);
-    console.log("change");
   };
 
   return (
     <>
       <div
         className={cn(
-          "flex sm:flex-col items-center justify-start sm:justify-between gap-6 w-full px-4 sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px] mx-auto",
+          "flex sm:flex-col items-center justify-start sm:justify-between gap-6 w-full px-4 " +
+            "sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px] mx-auto",
           className
         )}
         onClick={() => {
@@ -95,6 +95,12 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
           </div>
         )}
       </div>
+
+      <PizzaModal
+        isOpen={isOpenDialog}
+        pizza={pizza}
+        onClickOpenChange={toggleDialog}
+      />
     </>
   );
 };
