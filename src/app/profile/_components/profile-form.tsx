@@ -8,15 +8,16 @@ import toast from "react-hot-toast";
 import { useAuth, useAuthActions } from "@/context";
 import { profileSchema, ProfileSchemaFields } from "../_constants";
 import { formatPhone, getNumbers } from "@/helpers";
+import { usePatchUserProfileMutation } from "@/api";
 
 import {
   AddressInput,
   Button,
   ErrorText,
   FormInput,
+  QuestionModal,
   RequiredSymbol,
 } from "@/components";
-import { usePatchUserProfileMutation } from "@/api";
 
 export const ProfileForm = () => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
@@ -67,15 +68,6 @@ export const ProfileForm = () => {
       });
     }
   };
-  /* 
-  const onClickExit = () => {
-    router.replace("/");
-    localStorage.clear();
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  }; */
 
   return (
     <>
@@ -149,14 +141,14 @@ export const ProfileForm = () => {
         </form>
       </FormProvider>
 
-      {/*     <QuestionModal
+      <QuestionModal
         exitButtonText="Выйти"
         question="Вы точно хотите выйти?"
         isOpen={isOpenDialog}
         onClickAgree={toggleDialog}
         onClickOpenChange={toggleDialog}
-        onClickExit={onClickExit}
-      /> */}
+        onClickExit={logout}
+      />
     </>
   );
 };
