@@ -4,20 +4,26 @@ import { createContext } from "react";
 
 interface AuthContext {
   user: User | undefined;
-  token: string | undefined;
+  authToken: string | undefined;
+}
+
+interface AuthContextActions {
+  setAuthToken: (token: string) => void;
   setUser: (user: User) => void;
-  setToken: (token: string) => void;
+  updateUser: () => void;
+  signin: (token: string) => void;
   logout: () => void;
-  login: (token: string) => void;
-  update: () => void;
 }
 
 export const AuthContext = createContext<AuthContext>({
   user: undefined,
-  token: undefined,
+  authToken: undefined,
+});
+
+export const AuthContextActions = createContext<AuthContextActions>({
+  setAuthToken: () => {},
   setUser: () => {},
-  setToken: () => {},
+  updateUser: () => {},
+  signin: () => {},
   logout: () => {},
-  login: () => {},
-  update: () => {},
 });

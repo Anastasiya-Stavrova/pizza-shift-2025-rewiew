@@ -45,7 +45,7 @@ export const Header = async () => {
               </NavLink>
             </>
           ) : (
-            <NavLink text="Войти" href={ROUTES.SIGNIN}>
+            <NavLink text="Войти" href={ROUTES.AUTH}>
               <SigninIcon />
             </NavLink>
           )}

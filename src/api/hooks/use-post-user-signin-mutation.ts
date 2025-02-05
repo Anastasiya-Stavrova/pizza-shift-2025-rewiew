@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { PostUserSigninRequestConfig, postUsersSignin } from "../requests/user";
 
-export function usePostUsersSignInMutation(
+export function usePostUserSigninMutation(
   settings?: MutationSettings<
     PostUserSigninRequestConfig,
     typeof postUsersSignin

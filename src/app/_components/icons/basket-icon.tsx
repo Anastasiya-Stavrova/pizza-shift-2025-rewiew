@@ -1,8 +1,12 @@
+"use client";
+
 export const BasketIcon = ({
   fill = "#141C24",
   className,
   ...props
 }: React.SVGProps<SVGSVGElement>) => {
+  const activeFill = "#F4511E";
+
   return (
     <svg
       width="24"
@@ -34,11 +38,11 @@ export const BasketIcon = ({
       />
       <path
         d="M17.4501 22.2381C18.0471 22.2381 18.5311 21.7542 18.5311 21.1572C18.5311 20.5601 18.0471 20.0762 17.4501 20.0762C16.8531 20.0762 16.3691 20.5601 16.3691 21.1572C16.3691 21.7542 16.8531 22.2381 17.4501 22.2381Z"
-        fill={fill}
+        fill={className ? activeFill : fill}
       />
       <path
         d="M7.72161 22.2381C8.31862 22.2381 8.8026 21.7542 8.8026 21.1572C8.8026 20.5601 8.31862 20.0762 7.72161 20.0762C7.1246 20.0762 6.64062 20.5601 6.64062 21.1572C6.64062 21.7542 7.1246 22.2381 7.72161 22.2381Z"
-        fill={fill}
+        fill={className ? activeFill : fill}
       />
     </svg>
   );

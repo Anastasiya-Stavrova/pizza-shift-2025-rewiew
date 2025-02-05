@@ -37,7 +37,7 @@ export const BottomNav = async () => {
       )}
 
       {!isLogged && (
-        <NavLink text="Войти" href={ROUTES.SIGNIN}>
+        <NavLink text="Войти" href={ROUTES.AUTH}>
           <SigninIcon fill="#97A1AF" />
         </NavLink>
       )}

@@ -73,7 +73,18 @@ main {
   }
 }
 
+#nprogress .bar {
+  @apply bg-primary !important;
+}
+
+#nprogress .peg {
+  @apply shadow-md shadow-primary !important;
+}
+
+#nprogress .spinner-icon {
+  @apply border-t-primary border-l-primary !important;
+}
+
 .active-icon path {
   stroke: #f4511e;
-  fill: #f4511e;
 }
