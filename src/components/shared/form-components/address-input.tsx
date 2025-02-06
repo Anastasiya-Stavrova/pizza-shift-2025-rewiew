@@ -3,8 +3,6 @@
 import React from "react";
 import { AddressSuggestions } from "react-dadata";
 
-import { DADATA_TOKEN } from "../../../../env";
-
 import "react-dadata/dist/react-dadata.css";
 
 interface AddressInputProps {
@@ -26,10 +24,13 @@ export const AddressInput = ({
         onInput: (event: React.ChangeEvent<HTMLInputElement>) => {
           onChange?.(event.target.value);
         },
-        className: `flex h-12 py-2 px-3 w-full rounded-[8px] border border-input hover:border-[#97A1AF] focus:border-[#4C94FF] focus:border-2 bg-white text-base font-normal transition-colors placeholder:text-muted-foreground focus-visible:outline-none ${className}`,
+        className:
+          `flex h-12 py-2 px-3 w-full rounded-[8px] border border-input hover:border-[#97A1AF] ` +
+          `focus:border-[#4C94FF] focus:border-2 bg-white text-base font-normal transition-colors ` +
+          `placeholder:text-muted-foreground focus-visible:outline-none ${className}`,
       }}
       defaultQuery={value}
-      token={DADATA_TOKEN}
+      token={process.env.NEXT_PUBLIC_DADATA_TOKEN!}
       count={5}
       onChange={data => onChange?.(data?.value)}
       uid={id}

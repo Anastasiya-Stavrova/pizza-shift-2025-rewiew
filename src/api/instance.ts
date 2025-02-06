@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { API_URL, COOKIES } from "@/constants";
+import { COOKIES } from "@/constants";
 import { getCookie, isSSR } from "@/utils";
 
 export const instance = axios.create({
-  baseURL: API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

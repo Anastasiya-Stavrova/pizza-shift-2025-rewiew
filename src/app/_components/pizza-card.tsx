@@ -4,7 +4,6 @@ import React from "react";
 import { useMedia } from "react-use";
 import Image from "next/image";
 
-import { API_URL } from "@/constants";
 import { getMinPizzaPrice } from "../_helpers";
 import { cn } from "@/lib";
 
@@ -41,12 +40,13 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
         <div className="size-[116px] sm:size-[220px]">
           <div className="relative size-[116px] sm:size-[220px]">
             <Image
-              src={API_URL + pizza.img}
+              src={process.env.NEXT_PUBLIC_API_URL + pizza.img}
               alt={pizza.name}
               fill
               loading="lazy"
               placeholder="blur"
               blurDataURL="/assets/images/pizza.png"
+              sizes="(max-width: 640px) 116px, 220px"
               style={{ objectFit: "contain" }}
             />
           </div>

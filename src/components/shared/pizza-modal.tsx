@@ -7,7 +7,6 @@ import { BasketItemState, useAuth, useBasketActions } from "@/context";
 import { usePizzaOptions } from "@/hooks";
 import { capitalizeFirstLetter, getPizzaIngredientsDetails } from "@/helpers";
 import {
-  API_URL,
   mapPizzaSizeToNumber,
   pizzaSizeNames,
   mapPizzaIngredientsToName,
@@ -116,87 +115,106 @@ export const PizzaModal = ({
       <DialogTitle className="hidden" />
       <DialogContent
         className={cn(
-          "w-full h-full max-w-[806px] max-h-[644px] p-0 pt-10",
+          "w-[90%] h-[90%] max-w-[806px] max-h-[644px] p-0 pt-10",
           className
         )}
       >
-        <div className="w-full h-full flex items-ctart justify-between py-6 px-16">
+        <div
+          className={
+            "w-full h-full overflow-y-hidden flex items-ctart justify-between " +
+            "py-6 px-12 lg:px-16"
+          }
+        >
           <PizzaImage
             name={pizza.name}
-            src={API_URL + pizza.img}
+            src={process.env.NEXT_PUBLIC_API_URL + pizza.img}
             size={mapPizzaSizeToNumber[states.size]}
           />
 
-          <div className="flex flex-col justify-between gap-6 h-full w-full max-w-[426px]">
-            <div className="flex flex-col gap-6 w-full px-4">
-              <div className="flex flex-col gap-2">
-                <div className="w-full flex gap-3 items-center justify-between">
-                  <Typography
-                    text={pizza.name}
-                    size="xl"
-                    className="text-[#292929]"
-                  />
-
-                  <PizzaInfoPopover
-                    calories={pizza.calories}
-                    protein={pizza.protein}
-                    totalFat={pizza.totalFat}
-                    carbohydrates={pizza.carbohydrates}
-                  />
-                </div>
-
-                <Typography
-                  text={`${
-                    mapPizzaSizeToNumber[states.size]
-                  } см, традиционное тесто`}
-                  className="text-[#535353]"
-                />
-
-                <Typography
-                  text={getPizzaIngredientsDetails(pizza.ingredients)}
-                  size="md"
-                  className="text-[#535353]"
-                />
-              </div>
-
-              <ToggleGroup
-                className="w-full"
-                items={pizzaSizeNames}
-                value={String(states.size)}
-                onClick={value => functions.setSize(value as PizzaSizeName)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Typography
-                text=" Добавить по вкусу"
-                size="md"
-                className="font-medium px-4"
-              />
-
-              <div className="max-h-[236px] overflow-y-auto scrollbar p-4">
-                <div className="grid grid-cols-3 gap-[11px]">
-                  {pizza.toppings.map(topping => (
-                    <IngredientItem
-                      key={topping.name}
-                      name={capitalizeFirstLetter(
-                        mapPizzaIngredientsToName[topping.name]
-                      )}
-                      imageUrl={API_URL + topping.img}
-                      price={topping.cost}
-                      active={states.selectedToppings.has(topping.name)}
-                      onClick={() => functions.addToppings(topping.name)}
+          <div
+            className={
+              "flex flex-col justify-between gap-6 h-full w-full " +
+              "max-w-[426px]"
+            }
+          >
+            <div
+              className={
+                "flex flex-col justify-between gap-6 h-full w-full " +
+                "max-w-[426px] overflow-y-auto scrollbar"
+              }
+            >
+              <div className="flex flex-col gap-6 w-full px-4">
+                <div className="flex flex-col gap-2">
+                  <div className="w-full flex gap-3 items-center justify-between">
+                    <Typography
+                      text={pizza.name}
+                      size="xl"
+                      className="text-[#292929]"
                     />
-                  ))}
+
+                    <PizzaInfoPopover
+                      calories={pizza.calories}
+                      protein={pizza.protein}
+                      totalFat={pizza.totalFat}
+                      carbohydrates={pizza.carbohydrates}
+                    />
+                  </div>
+
+                  <Typography
+                    text={`${
+                      mapPizzaSizeToNumber[states.size]
+                    } см, традиционное тесто`}
+                    className="text-[#535353]"
+                  />
+
+                  <Typography
+                    text={getPizzaIngredientsDetails(pizza.ingredients)}
+                    size="md"
+                    className="text-[#535353]"
+                  />
+                </div>
+
+                <ToggleGroup
+                  className="w-full"
+                  items={pizzaSizeNames}
+                  value={String(states.size)}
+                  onClick={value => functions.setSize(value as PizzaSizeName)}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Typography
+                  text=" Добавить по вкусу"
+                  size="md"
+                  className="font-medium px-4"
+                />
+
+                <div className="h-full p-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-[11px] md:gap-4 lg:gap-[11px]">
+                    {pizza.toppings.map(topping => (
+                      <IngredientItem
+                        key={topping.name}
+                        name={capitalizeFirstLetter(
+                          mapPizzaIngredientsToName[topping.name]
+                        )}
+                        imageUrl={process.env.NEXT_PUBLIC_API_URL + topping.img}
+                        price={topping.cost}
+                        active={states.selectedToppings.has(topping.name)}
+                        onClick={() => functions.addToppings(topping.name)}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <Button onClick={() => handleClickAdd()}>
-              {item
-                ? `Изменить выбранный товар за ${states.totalPrice} ₽`
-                : `Добавить в корзину за ${states.totalPrice} ₽`}
-            </Button>
+            <div className="w-full sticky bottom-0 shadow-lg shadow-black/5 bg-background">
+              <Button onClick={() => handleClickAdd()}>
+                {item
+                  ? `Изменить выбранный товар за ${states.totalPrice} ₽`
+                  : `Добавить в корзину за ${states.totalPrice} ₽`}
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>

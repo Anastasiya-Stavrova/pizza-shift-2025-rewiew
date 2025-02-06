@@ -26,7 +26,7 @@ export const IngredientItem = ({
     <div
       className={cn(
         "flex flex-col items-center justify-between gap-3 p-2 rounded-md text-center relative " +
-          "cursor-pointer item-shadow bg-white mx-auto w-full h-full max-w-[124px] min-h-[192px]",
+          "cursor-pointer item-shadow bg-white mx-auto w-full h-full max-w-[124px] md:max-w-[170px] lg:max-w-[124px] min-h-[192px]",
         { "border border-primary": active },
         className
       )}

@@ -15,7 +15,12 @@ export const BottomNav = async () => {
   const isLogged = (await cookies()).get("authToken")?.value ? true : false;
 
   return (
-    <nav className="flex sm:hidden w-full bg-background items-center justify-between fixed bottom-0 border-t border-[#CED2DA]">
+    <nav
+      className={
+        "flex sm:hidden w-full bg-background items-center justify-between " +
+        "fixed bottom-0 border-t border-[#CED2DA]"
+      }
+    >
       <NavLink text="Пицца" href={ROUTES.ROOT}>
         <PizzaIcon fill="#97A1AF" />
       </NavLink>
