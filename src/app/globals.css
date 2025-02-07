@@ -99,6 +99,10 @@ main {
   box-shadow: 0px 4px 12px 0px #1a1a1e26;
 }
 
+.sheet-shadow {
+  box-shadow: 0px -6px 30px 0px #4848481a;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 6px;
 }

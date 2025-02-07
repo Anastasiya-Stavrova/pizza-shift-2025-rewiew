@@ -4,8 +4,9 @@ import toast from "react-hot-toast";
 import { useMedia } from "react-use";
 
 import { cn } from "@/lib";
-import { BasketItemState, useAuth, useBasketActions } from "@/context";
-import { usePizzaOptions } from "@/hooks";
+import { BasketItemState } from "@/store";
+import { useAuth } from "@/context";
+import { useBasket, usePizzaOptions } from "@/hooks";
 import { capitalizeFirstLetter, getPizzaIngredientsDetails } from "@/helpers";
 import {
   mapPizzaSizeToNumber,
@@ -45,9 +46,9 @@ export const PizzaModal = ({
   onClickOpenChange,
 }: PizzaModalProps) => {
   const { authToken } = useAuth();
-  const { addBasketItem, updateSelectedItem } = useBasketActions();
+  const { addBasketItem, updateSelectedItem } = useBasket();
   const { states, functions } = usePizzaOptions(pizza, item);
-
+  console.log("PizzaModal Render");
   const isSmallDevice = useMedia("(max-width: 768px)", true);
 
   const handleClickAdd = () => {
@@ -72,6 +73,7 @@ export const PizzaModal = ({
       });
     } else {
       const cartItem: BasketItemState = {
+        id: pizza.id,
         name: pizza.name,
         img: pizza.img,
         pizzaSize: mapPizzaSizeToNumber[states.size],

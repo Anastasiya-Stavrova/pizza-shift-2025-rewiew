@@ -61,6 +61,10 @@ export const AuthContextProvider = ({
     }
   }, []);
 
+  React.useEffect(() => {
+    updateUser();
+  }, []);
+
   const value = React.useMemo(
     () => ({
       user,

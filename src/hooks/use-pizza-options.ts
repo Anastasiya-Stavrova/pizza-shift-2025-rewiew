@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSet } from "react-use";
 
-import { BasketItemState } from "@/context";
+import { BasketItemState } from "@/store";
 import { calcTotalPizzaPrice } from "@/helpers";
 import { mapPizzaNumberToSize } from "@/constants";
 

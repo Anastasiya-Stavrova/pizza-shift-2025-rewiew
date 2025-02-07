@@ -17,7 +17,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground border-solid border border-[#CED2DA] " +
           "hover:bg-[#F9FAFB] active:bg-[#FFFFFF]",
         link:
-          "text-muted-foreground text-xs underline-offset-2 underline cursor-pointer " +
+          "text-muted-foreground font-normal text-xs underline-offset-2 underline cursor-pointer " +
           "hover:text-[#141C24] transition duration-300",
       },
       size: {
