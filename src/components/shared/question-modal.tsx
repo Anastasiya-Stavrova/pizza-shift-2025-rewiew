@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useMedia } from "react-use";
 
-import { cn } from "@/lib";
 import { ICONS } from "@/constants";
 
 import {
@@ -21,7 +20,7 @@ interface QuestionModalProps {
   exitButtonText: string;
   question: string;
   isOpen: boolean;
-  className?: string;
+  submitting?: boolean;
   onClickAgree: () => void;
   onClickExit: () => void;
   onClickOpenChange: () => void;
@@ -31,7 +30,7 @@ export const QuestionModal = ({
   exitButtonText,
   question,
   isOpen,
-  className,
+  submitting = false,
   onClickAgree,
   onClickExit,
   onClickOpenChange,
@@ -42,7 +41,7 @@ export const QuestionModal = ({
     return (
       <Drawer open={isOpen} onOpenChange={onClickOpenChange}>
         <DrawerTitle className="hidden" />
-        <DrawerContent className={cn("w-full", className)}>
+        <DrawerContent className="w-full">
           <div className="w-full h-full flex flex-col gap-[40px] items-center justify-between p-[40px] pt-0">
             <div className="flex flex-col items-center justify-between gap-[16px]">
               <Image
@@ -59,10 +58,16 @@ export const QuestionModal = ({
             </div>
 
             <div className="w-full max-w-[328px] flex flex-col items-center justify-between gap-[16px]">
-              <Button variant="secondary" onClick={onClickAgree}>
+              <Button
+                variant="secondary"
+                disabled={submitting}
+                onClick={onClickAgree}
+              >
                 Отменить
               </Button>
-              <Button onClick={onClickExit}>{exitButtonText}</Button>
+              <Button disabled={submitting} onClick={onClickExit}>
+                {exitButtonText}
+              </Button>
             </div>
           </div>
         </DrawerContent>
@@ -73,12 +78,7 @@ export const QuestionModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClickOpenChange}>
       <DialogTitle className="hidden" />
-      <DialogContent
-        className={cn(
-          "w-full h-full max-w-[544px] max-h-[400px] p-0 pt-10",
-          className
-        )}
-      >
+      <DialogContent className="w-full h-full max-w-[544px] max-h-[400px] p-0 pt-10">
         <div className="w-full h-full flex flex-col gap-[40px] items-center justify-between p-[72px] pt-0">
           <div className="flex flex-col items-center justify-between gap-[16px]">
             <Image src={ICONS.QUESTION} alt="Question" width={80} height={80} />
@@ -86,10 +86,16 @@ export const QuestionModal = ({
           </div>
 
           <div className="w-full max-w-[328px] flex flex-col items-center justify-between gap-[16px]">
-            <Button variant="secondary" onClick={onClickAgree}>
+            <Button
+              variant="secondary"
+              disabled={submitting}
+              onClick={onClickAgree}
+            >
               Отменить
             </Button>
-            <Button onClick={onClickExit}>{exitButtonText}</Button>
+            <Button disabled={submitting} onClick={onClickExit}>
+              {exitButtonText}
+            </Button>
           </div>
         </div>
       </DialogContent>

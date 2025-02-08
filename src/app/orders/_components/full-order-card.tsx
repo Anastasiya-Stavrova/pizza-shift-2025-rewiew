@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import { getOrderDetails } from "../_helpers";
@@ -18,6 +17,7 @@ import {
   QuestionModal,
   Typography,
 } from "@/components";
+import { usePutPizzaOrdersCancelMutation } from "@/api";
 
 type FullOrderCardProps = PartialOrderCardProps & {
   isSpecificOrder?: boolean;
@@ -32,6 +32,8 @@ export const FullOrderCard = ({
 }: FullOrderCardProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+  const putPizzaOrdersCancelMutation = usePutPizzaOrdersCancelMutation();
 
   const { orderAddress, orderStructure, totalAmount } = getOrderDetails(
     address,
@@ -48,25 +50,15 @@ export const FullOrderCard = ({
   const cancelOrder = async () => {
     setSubmitting(true);
 
-    /*  try {
-      await Api.order.cancelOrder({ orderId: id });
-
-      toast.success("Заказ успешно отменен!", {
-        icon: "📦",
+    try {
+      await putPizzaOrdersCancelMutation.mutateAsync({
+        params: { orderId: id },
       });
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-      toast.error("Не удалось отменить заказ", {
-        icon: "❌",
-      });
+    } catch {
     } finally {
       setSubmitting(false);
       toggleDialog();
-    } */
+    }
   };
 
   return (
@@ -116,7 +108,7 @@ export const FullOrderCard = ({
               Назад
             </Button>
             <Button
-              className="w-full sm:max-w-[200px]" /*  onClick={onClickReorder} */
+              className="w-full sm:max-w-[200px]" /* onClick={onClickReorder} */
             >
               Повторить заказ
             </Button>
@@ -132,6 +124,7 @@ export const FullOrderCard = ({
         exitButtonText="Не отменять"
         question="Отменить заказ?"
         isOpen={isOpenDialog}
+        submitting={submitting}
         onClickAgree={cancelOrder}
         onClickOpenChange={toggleDialog}
         onClickExit={toggleDialog}
