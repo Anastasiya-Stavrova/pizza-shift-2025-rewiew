@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useShallow } from "zustand/react/shallow";
 
 import {
   useGetPizzaCatalogQuery,
   usePutPizzaOrdersCancelMutation,
 } from "@/api";
-import { useBasketStore } from "@/store";
 import { calcTotalPizzaPrice } from "@/helpers";
 import { mapPizzaSizeToNumber } from "@/constants";
 import { getOrderDetails } from "../_helpers";
@@ -25,6 +23,7 @@ import {
   Typography,
 } from "@/components";
 import { PartialOrderCardProps } from "./partial-order-card";
+import { useBasket } from "@/hooks";
 
 type FullOrderCardProps = PartialOrderCardProps & {
   isSpecificOrder?: boolean;
@@ -40,12 +39,7 @@ export const FullOrderCard = ({
   const [submitting, setSubmitting] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-  const { clearBasket, addBasketItem } = useBasketStore(
-    useShallow(state => ({
-      clearBasket: state.clearBasket,
-      addBasketItem: state.addBasketItem,
-    }))
-  );
+  const { clearBasket, addBasketItem } = useBasket();
 
   const putPizzaOrdersCancelMutation = usePutPizzaOrdersCancelMutation();
   const { data, error } = useGetPizzaCatalogQuery();

@@ -4,9 +4,9 @@ import React from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { useShallow } from "zustand/react/shallow";
 
-import { BasketItemState, useBasketStore } from "@/store";
+import { BasketItemState } from "@/store";
+import { useBasket } from "@/hooks";
 import { getBasketItemDetails } from "@/helpers";
 
 import { Button, PizzaModal, Typography } from "@/components";
@@ -15,12 +15,7 @@ import { CountButton } from ".";
 export const BasketItem = ({ item }: { item: BasketItemState }) => {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   console.log("BasketItem Render");
-  const { removeBasketItem, updateItemQuantity } = useBasketStore(
-    useShallow(state => ({
-      removeBasketItem: state.removeBasketItem,
-      updateItemQuantity: state.updateItemQuantity,
-    }))
-  );
+  const { removeBasketItem, updateItemQuantity } = useBasket();
 
   const toggleDialog = () => {
     setIsOpenDialog(!isOpenDialog);

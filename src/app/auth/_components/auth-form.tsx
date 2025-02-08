@@ -3,13 +3,15 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { useAuthActions } from "@/context";
 import { getNumbers } from "@/helpers";
 import { usePostAuthOtpMutation, usePostUserSigninMutation } from "@/api";
 import { useTimer } from "../_hooks";
 import { getAuthFormOptions } from "../_helpers";
 
 import { Button, FormInput, Loader, Typography } from "@/components";
+import { useAuth } from "@/hooks";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/constants";
 
 export type AuthStage = "PHONE_STAGE" | "OTP_STAGE";
 
@@ -24,10 +26,12 @@ export const AuthForm = () => {
   const [phone, setPhone] = React.useState("");
 
   const { retryDelay, setRetryDelay } = useTimer();
-  const { signin } = useAuthActions();
+  const { signin } = useAuth();
 
   const postAuthOtpMutation = usePostAuthOtpMutation();
   const postUserSigninMutation = usePostUserSigninMutation();
+
+  const router = useRouter();
 
   const form = useForm<AuthFields>(getAuthFormOptions(stage, phone));
 
@@ -62,6 +66,8 @@ export const AuthForm = () => {
           }
         );
         signin(responseData.token);
+        router.replace(ROUTES.ROOT);
+        router.refresh();
       } catch {
       } finally {
         setSubmitting(false);

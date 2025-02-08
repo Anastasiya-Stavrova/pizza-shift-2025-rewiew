@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useShallow } from "zustand/react/shallow";
 import React from "react";
 
-import { useBasketStore } from "@/store";
 import { usePostPizzaPaymentMutation } from "@/api";
 import { getNumbers } from "@/helpers";
 import { usePaymentStore } from "../_store";
@@ -14,13 +13,14 @@ import {
 } from "../_constants";
 
 import { Button, FormInput, Loader, Typography } from "@/components";
+import { useBasket } from "@/hooks";
 
 export const CreatePaymentUserCartForm = () => {
   const [submitting, setSubmitting] = React.useState(false);
 
   const postPizzaPaymentMutation = usePostPizzaPaymentMutation();
 
-  const basketItems = useBasketStore(state => state.basketItems);
+  const { basketItems } = useBasket();
   const { userData, setCurrentStage } = usePaymentStore(
     useShallow(state => ({
       userData: state.userData,

@@ -2,23 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useShallow } from "zustand/react/shallow";
 
-import { useBasketStore } from "@/store";
 import { ICONS, ROUTES } from "@/constants";
 import { usePaymentStore } from "@/app/payment/_store";
 
 import { Button, Typography } from "@/components";
 import { BasketItem } from ".";
+import { useBasket } from "@/hooks";
 
 export const BasketSheet = () => {
   const resetStage = usePaymentStore(state => state.resetStage);
-  const { totalAmount, basketItems } = useBasketStore(
-    useShallow(state => ({
-      totalAmount: state.totalAmount,
-      basketItems: state.basketItems,
-    }))
-  );
+  const { totalAmount, basketItems } = useBasket();
   console.log("BasketSheet Render");
   const router = useRouter();
 

@@ -4,7 +4,6 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 
-import { useAuth, useAuthActions } from "@/context";
 import { formatPhone, getNumbers } from "@/helpers";
 import { usePatchUserProfileMutation } from "@/api";
 import { profileSchema, ProfileSchemaFields } from "../_constants";
@@ -18,15 +17,19 @@ import {
   QuestionModal,
   RequiredSymbol,
 } from "@/components";
+import { useAuth } from "@/hooks";
+import { ROUTES } from "@/constants";
+import { useRouter } from "next/navigation";
 
 export const ProfileForm = () => {
   const [submitting, setSubmitting] = React.useState(false);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
-  const { user } = useAuth();
-  const { logout, updateUser } = useAuthActions();
+  const { user, logout, updateUser } = useAuth();
 
   const patchUserProfileMutation = usePatchUserProfileMutation();
+
+  const router = useRouter();
 
   const form = useForm<ProfileSchemaFields>({
     resolver: zodResolver(profileSchema),
@@ -148,7 +151,11 @@ export const ProfileForm = () => {
         isOpen={isOpenDialog}
         onClickAgree={toggleDialog}
         onClickOpenChange={toggleDialog}
-        onClickExit={logout}
+        onClickExit={() => {
+          logout();
+          router.replace(ROUTES.ROOT);
+          router.refresh();
+        }}
       />
 
       {submitting && <Loader />}

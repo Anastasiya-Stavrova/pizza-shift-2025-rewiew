@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useShallow } from "zustand/react/shallow";
 import { useRouter } from "next/navigation";
 
-import { useAuth } from "@/context";
 import { formatPhone } from "@/helpers";
 import { usePaymentStore } from "../_store";
 import {
@@ -21,6 +20,7 @@ import {
   RequiredSymbol,
   Typography,
 } from "@/components";
+import { useAuth } from "@/hooks";
 
 export const CreatePaymentUserDataForm = () => {
   const { user } = useAuth();

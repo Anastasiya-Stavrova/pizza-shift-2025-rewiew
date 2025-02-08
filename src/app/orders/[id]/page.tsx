@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 
-import { Api, useGetPizzaOrderByIdQuery } from "@/api";
-
 import { OrderDetails } from "../_components";
 
 export const metadata: Metadata = {
-  title: "ШИФТ PIZZA | информация о заказе",
+  title: "ШИФТ PIZZA | Информация о заказе",
 };
 
 export default async function OrderPage({

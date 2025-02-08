@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import { useShallow } from "zustand/react/shallow";
 import toast from "react-hot-toast";
 import { useMedia } from "react-use";
 
 import { cn } from "@/lib";
-import { BasketItem, BasketItemState, useBasketStore } from "@/store";
-import { useAuth } from "@/context";
-import { usePizzaOptions } from "@/hooks";
+import { BasketItem, BasketItemState } from "@/store";
+
+import { useAuth, useBasket, usePizzaOptions } from "@/hooks";
 import { capitalizeFirstLetter, getPizzaIngredientsDetails } from "@/helpers";
 import {
   mapPizzaSizeToNumber,
@@ -44,12 +43,7 @@ interface PizzaModalProps {
 export const PizzaModal = React.memo(
   ({ pizza, item, isOpen, className, onClickOpenChange }: PizzaModalProps) => {
     const { authToken } = useAuth();
-    const { addBasketItem, updateSelectedItem } = useBasketStore(
-      useShallow(state => ({
-        addBasketItem: state.addBasketItem,
-        updateSelectedItem: state.updateSelectedItem,
-      }))
-    );
+    const { addBasketItem, updateSelectedItem } = useBasket();
     const { states, functions } = usePizzaOptions(pizza, item);
     console.log("PizzaModal Render");
     const isSmallDevice = useMedia("(max-width: 768px)", true);

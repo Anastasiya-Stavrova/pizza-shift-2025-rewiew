@@ -5,7 +5,6 @@ import { COOKIES, ROUTES } from "@/constants";
 
 const authRedirectUrls: string[] = [
   ROUTES.PROFILE,
-  ROUTES.ORDERS,
   ROUTES.PAYMENT,
   ROUTES.BASKET,
 ];
@@ -13,7 +12,11 @@ const authRedirectUrls: string[] = [
 export const middleware = async (request: NextRequest) => {
   const token = request.cookies.get(COOKIES.AUTH)?.value;
 
-  if (!token && authRedirectUrls.includes(request.nextUrl.pathname)) {
+  if (
+    !token &&
+    (authRedirectUrls.includes(request.nextUrl.pathname) ||
+      request.nextUrl.pathname.startsWith("/orders"))
+  ) {
     return NextResponse.redirect(new URL(ROUTES.AUTH, request.url));
   }
 

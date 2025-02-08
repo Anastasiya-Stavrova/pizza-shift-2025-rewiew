@@ -30,8 +30,8 @@ interface BasketState {
   clearBasket: () => void;
 }
 
-export const useBasketStore = create<BasketState>()(
-  persist(
+export const useBasketStore = create(
+  persist<BasketState>(
     (set, get) => ({
       totalAmount: 0,
       basketItems: [],
