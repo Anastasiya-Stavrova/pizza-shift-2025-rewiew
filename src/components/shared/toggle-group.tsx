@@ -21,8 +21,8 @@ export const ToggleGroup = ({
   return (
     <div
       className={cn(
-        className,
-        "flex justify-between bg-[#F3F4F6] rounded-md p-[2px] select-none max-w-[394px]"
+        "flex justify-between bg-[#F3F4F6] rounded-md p-[2px] select-none max-w-[394px]",
+        className
       )}
     >
       {items.map(item => (

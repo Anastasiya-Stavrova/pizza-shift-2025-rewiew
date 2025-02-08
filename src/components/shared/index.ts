@@ -6,3 +6,5 @@ export { PizzaImage } from "./pizza-image";
 export { PizzaInfoPopover } from "./pizza-info-popover";
 export { IngredientItem } from "./ingredient-item";
 export { ToggleGroup } from "./toggle-group";
+export { Loader } from "./loader";
+export { InfoCard } from "./info-card";

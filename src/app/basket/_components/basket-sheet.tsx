@@ -2,16 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useShallow } from "zustand/react/shallow";
 
-import { useBasket } from "@/hooks";
+import { useBasketStore } from "@/store";
 import { ICONS, ROUTES } from "@/constants";
+import { usePaymentStore } from "@/app/payment/_store";
 
 import { Button, Typography } from "@/components";
 import { BasketItem } from ".";
 
 export const BasketSheet = () => {
-  const { totalAmount, basketItems, removeBasketItem, updateItemQuantity } =
-    useBasket();
+  const resetStage = usePaymentStore(state => state.resetStage);
+  const { totalAmount, basketItems } = useBasketStore(
+    useShallow(state => ({
+      totalAmount: state.totalAmount,
+      basketItems: state.basketItems,
+    }))
+  );
   console.log("BasketSheet Render");
   const router = useRouter();
 
@@ -25,6 +32,7 @@ export const BasketSheet = () => {
               icon: "❌",
             });
           } else {
+            resetStage();
             router.push(ROUTES.PAYMENT);
           }
         }}
@@ -52,12 +60,7 @@ export const BasketSheet = () => {
 
       <div className="flex flex-col gap-6">
         {basketItems.map((item, index) => (
-          <BasketItem
-            key={index}
-            item={item}
-            onClickRemoveItem={removeBasketItem}
-            onClickUpdateItem={updateItemQuantity}
-          />
+          <BasketItem key={index} item={item} />
         ))}
       </div>
 

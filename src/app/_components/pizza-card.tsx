@@ -5,16 +5,14 @@ import { useMedia } from "react-use";
 import Image from "next/image";
 
 import { getMinPizzaPrice } from "../_helpers";
-import { cn } from "@/lib";
 
 import { Button, PizzaModal, Typography } from "@/components";
 
 interface PizzaCardProps {
   pizza: Pizza;
-  className?: string;
 }
 
-export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
+export const PizzaCard = React.memo(({ pizza }: PizzaCardProps) => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const isSmallDevice = useMedia("(max-width: 640px)", true);
@@ -26,11 +24,10 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
   return (
     <>
       <div
-        className={cn(
+        className={
           "flex sm:flex-col items-center justify-start sm:justify-between gap-6 w-full px-4 " +
-            "sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px] mx-auto",
-          className
-        )}
+          "sm:px-0 cursor-pointer sm:cursor-default sm:max-w-[300px] sm:h-[520px] mx-auto"
+        }
         onClick={() => {
           if (isSmallDevice) {
             toggleDialog();
@@ -103,4 +100,4 @@ export const PizzaCard = ({ pizza, className }: PizzaCardProps) => {
       />
     </>
   );
-};
+});

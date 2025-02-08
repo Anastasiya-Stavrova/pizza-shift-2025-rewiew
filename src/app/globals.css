@@ -124,3 +124,34 @@ main {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.loader-path {
+  fill: none;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  animation: animate-stroke 1s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-stroke {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke: #f4511e;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35;
+    stroke: #e64a19;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124;
+    stroke: #d84315;
+  }
+}

@@ -3,13 +3,13 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { useAuthActions } from "@/context";
+import { getNumbers } from "@/helpers";
+import { usePostAuthOtpMutation, usePostUserSigninMutation } from "@/api";
 import { useTimer } from "../_hooks";
 import { getAuthFormOptions } from "../_helpers";
 
-import { Button, FormInput, Typography } from "@/components";
-import { getNumbers } from "@/helpers";
-import { usePostAuthOtpMutation, usePostUserSigninMutation } from "@/api";
-import { useAuthActions } from "@/context";
+import { Button, FormInput, Loader, Typography } from "@/components";
 
 export type AuthStage = "PHONE_STAGE" | "OTP_STAGE";
 
@@ -19,6 +19,7 @@ interface AuthFields {
 }
 
 export const AuthForm = () => {
+  const [submitting, setSubmitting] = React.useState(false);
   const [stage, setStage] = React.useState<AuthStage>("PHONE_STAGE");
   const [phone, setPhone] = React.useState("");
 
@@ -31,15 +32,22 @@ export const AuthForm = () => {
   const form = useForm<AuthFields>(getAuthFormOptions(stage, phone));
 
   const onSubmitPhone = async (phone: string): Promise<void> => {
+    setSubmitting(true);
+
     try {
       const { data } = await postAuthOtpMutation.mutateAsync({
         params: { phone: getNumbers(phone) },
       });
       setRetryDelay(data.retryDelay / 1000);
-    } catch {}
+    } catch {
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const onSubmit = async (data: AuthFields) => {
+    setSubmitting(true);
+
     if (stage === "PHONE_STAGE") {
       try {
         await onSubmitPhone(getNumbers(data.phone));
@@ -54,7 +62,10 @@ export const AuthForm = () => {
           }
         );
         signin(responseData.token);
-      } catch {}
+      } catch {
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
@@ -87,7 +98,7 @@ export const AuthForm = () => {
             )}
 
             <div className="w-full flex flex-col gap-2 py-4">
-              <Button className="w-[328px]">
+              <Button className="w-[328px]" disabled={submitting}>
                 {stage === "PHONE_STAGE" ? "Продолжить" : "Войти"}
               </Button>
 
@@ -116,6 +127,8 @@ export const AuthForm = () => {
           </div>
         </form>
       </FormProvider>
+
+      {submitting && <Loader />}
     </>
   );
 };

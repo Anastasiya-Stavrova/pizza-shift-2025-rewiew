@@ -5,20 +5,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 
 import { useAuth, useAuthActions } from "@/context";
-import { profileSchema, ProfileSchemaFields } from "../_constants";
 import { formatPhone, getNumbers } from "@/helpers";
 import { usePatchUserProfileMutation } from "@/api";
+import { profileSchema, ProfileSchemaFields } from "../_constants";
 
 import {
   AddressInput,
   Button,
   ErrorText,
   FormInput,
+  Loader,
   QuestionModal,
   RequiredSymbol,
 } from "@/components";
 
 export const ProfileForm = () => {
+  const [submitting, setSubmitting] = React.useState(false);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const { user } = useAuth();
@@ -43,8 +45,10 @@ export const ProfileForm = () => {
   };
 
   const onSubmit = async (data: ProfileSchemaFields) => {
+    setSubmitting(true);
+
     try {
-      const a = await patchUserProfileMutation.mutateAsync({
+      await patchUserProfileMutation.mutateAsync({
         params: {
           profile: {
             firstname: data.firstName,
@@ -57,7 +61,10 @@ export const ProfileForm = () => {
         },
       });
       updateUser();
-    } catch {}
+    } catch {
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -128,7 +135,9 @@ export const ProfileForm = () => {
                 Выйти
               </Button>
             )}
-            <Button className="max-w-[207px] ml-auto">Обновить данные</Button>
+            <Button className="max-w-[207px] ml-auto" disabled={submitting}>
+              Обновить данные
+            </Button>
           </div>
         </form>
       </FormProvider>
@@ -141,6 +150,8 @@ export const ProfileForm = () => {
         onClickOpenChange={toggleDialog}
         onClickExit={logout}
       />
+
+      {submitting && <Loader />}
     </>
   );
 };

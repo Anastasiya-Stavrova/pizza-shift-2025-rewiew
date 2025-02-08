@@ -4,18 +4,16 @@ interface PizzaImageProps {
   name: string;
   src: string;
   size: 25 | 30 | 35;
-  className?: string;
 }
 
-export const PizzaImage = ({ name, src, size, className }: PizzaImageProps) => {
+export const PizzaImage = ({ name, src, size }: PizzaImageProps) => {
   return (
     <div className="w-full max-w-[220px]">
       <div
-        className={cn(
+        className={
           "flex items-center justify-center flex-1 relative " +
-            "w-full h-full max-h-[220px]",
-          className
-        )}
+          "w-full h-full max-h-[220px]"
+        }
       >
         <img
           src={src}

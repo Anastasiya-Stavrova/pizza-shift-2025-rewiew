@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSet } from "react-use";
 
-import { BasketItemState } from "@/store";
+import { BasketItem } from "@/store";
 import { calcTotalPizzaPrice } from "@/helpers";
 import { mapPizzaNumberToSize } from "@/constants";
 
@@ -20,7 +20,7 @@ interface UsePizzaOptionsParams {
 
 export const usePizzaOptions = (
   pizza: Pizza,
-  item?: BasketItemState
+  item?: BasketItem
 ): UsePizzaOptionsParams => {
   const [size, setSize] = useState<PizzaSizeName>(
     mapPizzaNumberToSize[
@@ -29,7 +29,7 @@ export const usePizzaOptions = (
   );
 
   const [selectedToppings, { toggle: addToppings }] = useSet(
-    item?.toppings || new Set<PizzaIngredientName>()
+    new Set(item?.toppings) || new Set<PizzaIngredientName>()
   );
 
   const totalPrice = calcTotalPizzaPrice(
