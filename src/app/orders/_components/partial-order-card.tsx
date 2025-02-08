@@ -64,9 +64,9 @@ export const PartialOrderCard = ({
         <Button
           variant="link"
           className="p-0 w-fit h-fit"
-          /*   onClick={() => {
+          onClick={() => {
             router.push(`orders/${id}`);
-          }} */
+          }}
         >
           Подробнее
         </Button>
@@ -99,9 +99,9 @@ export const PartialOrderCard = ({
       <Button
         variant="link"
         className="p-0 w-fit h-fit"
-        /*   onClick={() => {
-            router.push(`orders/${id}`);
-          }} */
+        onClick={() => {
+          router.push(`orders/${id}`);
+        }}
       >
         Подробнее
       </Button>

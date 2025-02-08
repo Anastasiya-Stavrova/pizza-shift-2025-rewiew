@@ -108,7 +108,7 @@ export const FullOrderCard = ({
           <div className="flex gap-4">
             <Button
               variant="secondary"
-              className="w-full max-w-[145px]"
+              className="w-full max-w-[145px] hidden sm:block"
               onClick={() => {
                 router.back();
               }}
@@ -116,7 +116,7 @@ export const FullOrderCard = ({
               Назад
             </Button>
             <Button
-              className="w-full max-w-[200px]" /*  onClick={onClickReorder} */
+              className="w-full sm:max-w-[200px]" /*  onClick={onClickReorder} */
             >
               Повторить заказ
             </Button>
