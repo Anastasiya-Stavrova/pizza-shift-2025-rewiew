@@ -12,10 +12,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-[#D84315] active:bg-[#E64A19]",
+          "bg-primary text-primary-foreground hover:bg-[#D84315] active:bg-[#E64A19] text-sm sm:text-base",
         secondary:
           "bg-secondary text-secondary-foreground border-solid border border-[#CED2DA] " +
-          "hover:bg-[#F9FAFB] active:bg-[#FFFFFF]",
+          "hover:bg-[#F9FAFB] active:bg-[#FFFFFF] text-sm sm:text-base",
         link:
           "text-muted-foreground font-normal text-xs underline-offset-2 underline cursor-pointer " +
           "hover:text-[#141C24] transition duration-300",

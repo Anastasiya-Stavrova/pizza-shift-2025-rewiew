@@ -131,7 +131,7 @@ export const ProfileForm = () => {
             />
           </div>
 
-          <div className="flex gap-6 py-4">
+          <div className="flex gap-4 sm:gap-6 py-4">
             {!isOpenDialog && (
               <Button type="button" variant="secondary" onClick={toggleDialog}>
                 Выйти

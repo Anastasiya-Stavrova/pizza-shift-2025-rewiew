@@ -47,7 +47,7 @@ export const PizzaModal = ({
   onClickOpenChange,
 }: PizzaModalProps) => {
   const { addBasketItem, updateSelectedItem } = useBasketStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       addBasketItem: state.addBasketItem,
       updateSelectedItem: state.updateSelectedItem,
     }))
@@ -103,10 +103,10 @@ export const PizzaModal = ({
 
   const handleChange = () => {
     if (item) {
-      states.selectedToppings.forEach(topping =>
+      states.selectedToppings.forEach((topping) =>
         functions.addToppings(topping)
       );
-      item.toppings.forEach(topping => functions.addToppings(topping));
+      item.toppings.forEach((topping) => functions.addToppings(topping));
       functions.setSize(
         mapPizzaNumberToSize[
           item.pizzaSize as keyof typeof mapPizzaNumberToSize
@@ -193,7 +193,7 @@ export const PizzaModal = ({
                   className="w-full mx-auto"
                   items={pizzaSizeNames}
                   value={String(states.size)}
-                  onClick={value => functions.setSize(value as PizzaSizeName)}
+                  onClick={(value) => functions.setSize(value as PizzaSizeName)}
                 />
               </div>
 
@@ -206,7 +206,7 @@ export const PizzaModal = ({
 
                 <div className="w-full p-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-[11px] h-full">
-                    {pizza.toppings.map(topping => (
+                    {pizza.toppings.map((topping) => (
                       <IngredientItem
                         key={topping.name}
                         name={capitalizeFirstLetter(
@@ -226,7 +226,7 @@ export const PizzaModal = ({
             <div className="w-full h-full max-h-[128px] shadow-lg shadow-black/5 bg-background py-4 flex justify-center">
               <Button
                 onClick={() => handleClickAdd()}
-                className="w-[90%] max-w-[350px] text-sm"
+                className="w-[90%] max-w-[350px]"
               >
                 {item
                   ? `Изменить выбранный товар за ${states.totalPrice} ₽`
@@ -308,7 +308,7 @@ export const PizzaModal = ({
                   className="w-full"
                   items={pizzaSizeNames}
                   value={String(states.size)}
-                  onClick={value => functions.setSize(value as PizzaSizeName)}
+                  onClick={(value) => functions.setSize(value as PizzaSizeName)}
                 />
               </div>
 
@@ -321,7 +321,7 @@ export const PizzaModal = ({
 
                 <div className="h-full p-4">
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-[11px] md:gap-4 lg:gap-[11px]">
-                    {pizza.toppings.map(topping => (
+                    {pizza.toppings.map((topping) => (
                       <IngredientItem
                         key={topping.name}
                         name={capitalizeFirstLetter(
