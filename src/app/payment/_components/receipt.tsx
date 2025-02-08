@@ -13,25 +13,27 @@ import { Button, InfoCard, Typography } from "@/components";
 
 export const Receipt = () => {
   const { basketItems, totalAmount, clearBasket } = useBasketStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       basketItems: state.basketItems,
       totalAmount: state.totalAmount,
       clearBasket: state.clearBasket,
     }))
   );
   const { setOrderStage } = useOrdersStore(
-    useShallow(state => ({ setOrderStage: state.setCurrentStage }))
+    useShallow((state) => ({ setOrderStage: state.setCurrentStage }))
   );
-  const userData = usePaymentStore(useShallow(state => state.userData));
+  const userData = usePaymentStore(useShallow((state) => state.userData));
 
   const [oldBasketItems, oldTotalAmount] = React.useMemo(() => {
     return [basketItems, totalAmount];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const router = useRouter();
 
   React.useEffect(() => {
     clearBasket();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

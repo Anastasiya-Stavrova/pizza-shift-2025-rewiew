@@ -83,7 +83,7 @@ export const FullOrderCard = ({
     }
 
     pizzas.forEach(orderedPizza => {
-      const similarPizza = data?.data.catalog.find(
+      const similarPizza = data!.data.catalog.find(
         pizza => pizza.id === orderedPizza.id
       )!;
 
