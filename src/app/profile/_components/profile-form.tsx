@@ -1,11 +1,14 @@
 "use client";
 
+import React from "react";
+import { useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 
-import { formatPhone, getNumbers } from "@/helpers";
 import { usePatchUserProfileMutation } from "@/api";
+import { useAuth } from "@/hooks";
+import { formatPhone, getNumbers } from "@/helpers";
+import { ROUTES } from "@/constants";
 import { profileSchema, ProfileSchemaFields } from "../_constants";
 
 import {
@@ -17,9 +20,6 @@ import {
   QuestionModal,
   RequiredSymbol,
 } from "@/components";
-import { useAuth } from "@/hooks";
-import { ROUTES } from "@/constants";
-import { useRouter } from "next/navigation";
 
 export const ProfileForm = () => {
   const [submitting, setSubmitting] = React.useState(false);
@@ -49,7 +49,6 @@ export const ProfileForm = () => {
 
   const onSubmit = async (data: ProfileSchemaFields) => {
     setSubmitting(true);
-
     try {
       await patchUserProfileMutation.mutateAsync({
         params: {

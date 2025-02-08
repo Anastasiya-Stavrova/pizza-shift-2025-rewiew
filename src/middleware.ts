@@ -10,10 +10,10 @@ const authRedirectUrls: string[] = [
 ];
 
 export const middleware = async (request: NextRequest) => {
-  const token = request.cookies.get(COOKIES.AUTH)?.value;
+  const authToken = request.cookies.get(COOKIES.AUTH)?.value;
 
   if (
-    !token &&
+    !authToken &&
     (authRedirectUrls.includes(request.nextUrl.pathname) ||
       request.nextUrl.pathname.startsWith("/orders"))
   ) {

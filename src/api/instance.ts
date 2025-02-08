@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { COOKIES } from "@/constants";
 import { getCookie, isSSR } from "@/utils";
+import { COOKIES } from "@/constants";
 
 export const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

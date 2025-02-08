@@ -1,12 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useShallow } from "zustand/react/shallow";
-import { useRouter } from "next/navigation";
 
 import { formatPhone } from "@/helpers";
-import { usePaymentStore } from "../_store";
+import { useAuth } from "@/hooks";
+import { usePayment } from "../_hooks";
 import {
   paymentUserDataSchema,
   PaymentUserDataSchemaFields,
@@ -20,17 +20,10 @@ import {
   RequiredSymbol,
   Typography,
 } from "@/components";
-import { useAuth } from "@/hooks";
 
 export const CreatePaymentUserDataForm = () => {
+  const { userData, setUserData, setCurrentStage } = usePayment();
   const { user } = useAuth();
-  const { userData, setUserData, setCurrentStage } = usePaymentStore(
-    useShallow(state => ({
-      userData: state.userData,
-      setUserData: state.setUserData,
-      setCurrentStage: state.setCurrentStage,
-    }))
-  );
 
   const router = useRouter();
 

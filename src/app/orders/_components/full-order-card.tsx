@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import {
   useGetPizzaCatalogQuery,
   usePutPizzaOrdersCancelMutation,
 } from "@/api";
+import { useBasket } from "@/hooks";
 import { calcTotalPizzaPrice } from "@/helpers";
 import { mapPizzaSizeToNumber } from "@/constants";
 import { getOrderDetails } from "../_helpers";
@@ -23,7 +24,6 @@ import {
   Typography,
 } from "@/components";
 import { PartialOrderCardProps } from "./partial-order-card";
-import { useBasket } from "@/hooks";
 
 type FullOrderCardProps = PartialOrderCardProps & {
   isSpecificOrder?: boolean;
@@ -36,8 +36,8 @@ export const FullOrderCard = ({
   status,
   isSpecificOrder = false,
 }: FullOrderCardProps) => {
-  const [submitting, setSubmitting] = useState(false);
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const { clearBasket, addBasketItem } = useBasket();
 
@@ -58,7 +58,6 @@ export const FullOrderCard = ({
 
   const onClickCancelOrder = async () => {
     setSubmitting(true);
-
     try {
       await putPizzaOrdersCancelMutation.mutateAsync({
         params: { orderId: id },

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 
@@ -13,7 +12,7 @@ import { Button, PizzaModal, Typography } from "@/components";
 import { CountButton } from ".";
 
 export const BasketItem = ({ item }: { item: BasketItemState }) => {
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   console.log("BasketItem Render");
   const { removeBasketItem, updateItemQuantity } = useBasket();
 

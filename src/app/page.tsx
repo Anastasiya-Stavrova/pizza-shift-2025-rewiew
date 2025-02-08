@@ -2,8 +2,8 @@ import { Metadata } from "next";
 
 import { Api } from "@/api";
 
-import { PizzaCard } from "./_components";
 import { Typography } from "@/components";
+import { PizzaCard } from "./_components";
 
 export const metadata: Metadata = {
   title: "ШИФТ PIZZA | Главная страница",

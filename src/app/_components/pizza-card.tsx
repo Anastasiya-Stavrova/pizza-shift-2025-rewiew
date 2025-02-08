@@ -8,13 +8,9 @@ import { getMinPizzaPrice } from "../_helpers";
 
 import { Button, PizzaModal, Typography } from "@/components";
 
-interface PizzaCardProps {
-  pizza: Pizza;
-}
-
-export const PizzaCard = React.memo(({ pizza }: PizzaCardProps) => {
+export const PizzaCard = ({ pizza }: { pizza: Pizza }) => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
-
+  console.log("PizzaCard Render");
   const isSmallDevice = useMedia("(max-width: 640px)", true);
 
   const toggleDialog = () => {
@@ -100,4 +96,4 @@ export const PizzaCard = React.memo(({ pizza }: PizzaCardProps) => {
       />
     </>
   );
-});
+};

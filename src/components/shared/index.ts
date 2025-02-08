@@ -1,5 +1,4 @@
 export { Typography } from "./typography";
-export * from "./form-components";
 export { QuestionModal } from "./question-modal";
 export { PizzaModal } from "./pizza-modal";
 export { PizzaImage } from "./pizza-image";
@@ -8,3 +7,4 @@ export { IngredientItem } from "./ingredient-item";
 export { ToggleGroup } from "./toggle-group";
 export { Loader } from "./loader";
 export { InfoCard } from "./info-card";
+export * from "./form-components";

@@ -1,4 +1,5 @@
 import { cn } from "@/lib";
+
 import { Typography } from "../typography";
 
 interface ErrorTextProps {

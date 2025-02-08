@@ -66,7 +66,7 @@ export const OrderDetails = ({ orderId }: { orderId: string }) => {
 
       <div className="w-full flex flex-col justify-between gap-6 px-4 sm:px-0">
         <FullOrderCard
-          id={order?._id}
+          id={order._id}
           status={order.status}
           address={order.receiverAddress}
           pizzas={order.pizzas}

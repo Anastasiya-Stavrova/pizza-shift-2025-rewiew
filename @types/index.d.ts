@@ -1,8 +1,26 @@
-type PizzaSizeName = keyof typeof mapPizzaSizeToName;
+type PizzaSizeName = "SMALL" | "MEDIUM" | "LARGE";
 
-type PizzaIngredientName = keyof typeof mapPizzaIngredientsToName;
+type PizzaIngredientName =
+  | "PINEAPPLE"
+  | "MOZZARELLA"
+  | "PEPERONI"
+  | "GREEN_PEPPER"
+  | "MUSHROOMS"
+  | "BASIL"
+  | "CHEDDAR"
+  | "PARMESAN"
+  | "FETA"
+  | "HAM"
+  | "PICKLE"
+  | "TOMATO"
+  | "BACON"
+  | "ONION"
+  | "CHILE"
+  | "SHRIMPS"
+  | "CHICKEN_FILLET"
+  | "MEATBALLS";
 
-type OrderStatus = keyof typeof mapOrderStatusToDescription;
+type OrderStatus = 0 | 1 | 2 | 3 | 4;
 
 interface PizzaSize {
   name: PizzaSizeName;

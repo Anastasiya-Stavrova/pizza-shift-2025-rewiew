@@ -1,17 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { getNumbers } from "@/helpers";
 import { usePostAuthOtpMutation, usePostUserSigninMutation } from "@/api";
+import { useAuth } from "@/hooks";
+import { getNumbers } from "@/helpers";
+import { ROUTES } from "@/constants";
 import { useTimer } from "../_hooks";
 import { getAuthFormOptions } from "../_helpers";
 
 import { Button, FormInput, Loader, Typography } from "@/components";
-import { useAuth } from "@/hooks";
-import { useRouter } from "next/navigation";
-import { ROUTES } from "@/constants";
 
 export type AuthStage = "PHONE_STAGE" | "OTP_STAGE";
 
@@ -37,7 +37,6 @@ export const AuthForm = () => {
 
   const onSubmitPhone = async (phone: string): Promise<void> => {
     setSubmitting(true);
-
     try {
       const { data } = await postAuthOtpMutation.mutateAsync({
         params: { phone: getNumbers(phone) },
@@ -51,7 +50,6 @@ export const AuthForm = () => {
 
   const onSubmit = async (data: AuthFields) => {
     setSubmitting(true);
-
     if (stage === "PHONE_STAGE") {
       try {
         await onSubmitPhone(getNumbers(data.phone));

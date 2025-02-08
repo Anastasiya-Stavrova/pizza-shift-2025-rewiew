@@ -5,5 +5,4 @@ export const ROUTES = {
   ORDERS: "/orders",
   BASKET: "/basket",
   PAYMENT: "/payment",
-  NEXT: "/_next/static/css/app/layout.css",
 } as const;

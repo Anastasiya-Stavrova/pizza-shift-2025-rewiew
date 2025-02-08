@@ -1,4 +1,4 @@
-import { BasketItemState, useBasketStore } from "@/store";
+import { BasketItemState } from "@/store";
 import { mapPizzaSizeToNumber } from "@/constants";
 
 export const getOrderedPizzas = (

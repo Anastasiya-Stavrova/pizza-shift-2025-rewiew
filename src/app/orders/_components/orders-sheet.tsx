@@ -1,21 +1,15 @@
 "use client";
 
-import { useShallow } from "zustand/react/shallow";
 import { useRouter } from "next/navigation";
 
-import { useOrdersStore } from "../_store";
+import { useOrders } from "../_hooks";
 import { OrderTypeName, orderTypeNames } from "../_constants";
 
 import { ToggleGroup, Typography } from "@/components";
 import { FullOrderCard, PartialOrderCard } from ".";
 
 export const OrdersSheet = ({ orders }: { orders: PizzaOrder[] }) => {
-  const { currentStage, setCurrentStage } = useOrdersStore(
-    useShallow(state => ({
-      currentStage: state.currentStage,
-      setCurrentStage: state.setCurrentStage,
-    }))
-  );
+  const { currentStage, setCurrentStage } = useOrders();
 
   const router = useRouter();
 

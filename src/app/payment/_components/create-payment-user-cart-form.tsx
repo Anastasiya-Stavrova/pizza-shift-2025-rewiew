@@ -1,11 +1,11 @@
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useShallow } from "zustand/react/shallow";
-import React from "react";
 
 import { usePostPizzaPaymentMutation } from "@/api";
+import { useBasket } from "@/hooks";
 import { getNumbers } from "@/helpers";
-import { usePaymentStore } from "../_store";
+import { usePayment } from "../_hooks";
 import { getOrderedPizzas } from "../_helpers";
 import {
   paymentUserCartSchema,
@@ -13,21 +13,14 @@ import {
 } from "../_constants";
 
 import { Button, FormInput, Loader, Typography } from "@/components";
-import { useBasket } from "@/hooks";
 
 export const CreatePaymentUserCartForm = () => {
   const [submitting, setSubmitting] = React.useState(false);
 
   const postPizzaPaymentMutation = usePostPizzaPaymentMutation();
 
+  const { userData, setCurrentStage } = usePayment();
   const { basketItems } = useBasket();
-  const { userData, setCurrentStage } = usePaymentStore(
-    useShallow(state => ({
-      userData: state.userData,
-      setUserData: state.setUserData,
-      setCurrentStage: state.setCurrentStage,
-    }))
-  );
 
   const form = useForm<PaymentUserCartSchemaFields>({
     resolver: zodResolver(paymentUserCartSchema),
@@ -42,28 +35,27 @@ export const CreatePaymentUserCartForm = () => {
     setSubmitting(true);
 
     try {
-      const postPizzaPaymentMutationResponse =
-        await postPizzaPaymentMutation.mutateAsync({
-          params: {
-            receiverAddress: {
-              street: userData!.address,
-              house: " ",
-              apartment: " ",
-            },
-            person: {
-              firstname: userData!.firstName,
-              middlename: "",
-              lastname: userData!.lastName,
-              phone: getNumbers(userData!.phone),
-            },
-            debitCard: {
-              pan: data.pan,
-              expireDate: data.expireDate,
-              cvv: data.cvv,
-            },
-            pizzas: getOrderedPizzas(basketItems),
+      await postPizzaPaymentMutation.mutateAsync({
+        params: {
+          receiverAddress: {
+            street: userData!.address,
+            house: " ",
+            apartment: " ",
           },
-        });
+          person: {
+            firstname: userData!.firstName,
+            middlename: "",
+            lastname: userData!.lastName,
+            phone: getNumbers(userData!.phone),
+          },
+          debitCard: {
+            pan: data.pan,
+            expireDate: data.expireDate,
+            cvv: data.cvv,
+          },
+          pizzas: getOrderedPizzas(basketItems),
+        },
+      });
 
       setCurrentStage("USER_PAYMENT_INFO_STAGE");
     } catch {
@@ -128,6 +120,7 @@ export const CreatePaymentUserCartForm = () => {
                   type="button"
                   variant="secondary"
                   className="hidden sm:block"
+                  disabled={submitting}
                   onClick={() => setCurrentStage("SET_USER_DATA_STAGE")}
                 >
                   Назад

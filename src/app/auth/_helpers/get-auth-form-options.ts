@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { AuthStage } from "../_components";
 import { authFullSchema, authPartialSchema } from "../_constants";
+import { AuthStage } from "../_components";
 
 export const getAuthFormOptions = (stage: AuthStage, phone: string) => {
   const formOptions =

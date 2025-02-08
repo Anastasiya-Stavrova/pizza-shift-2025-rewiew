@@ -4,16 +4,16 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { getBasketItemDetails } from "@/helpers";
-import { useOrdersStore } from "@/app/orders/_store";
-import { usePaymentStore } from "../_store";
+import { useBasket } from "@/hooks";
+import { useOrders } from "@/app/orders/_hooks";
+import { usePayment } from "../_hooks";
 
 import { Button, InfoCard, Typography } from "@/components";
-import { useBasket } from "@/hooks";
 
 export const Receipt = () => {
-  const userData = usePaymentStore(state => state.userData);
-  const setOrderStage = useOrdersStore(state => state.setCurrentStage);
   const { basketItems, totalAmount, clearBasket } = useBasket();
+  const { setCurrentStage: setOrderStage } = useOrders();
+  const { userData } = usePayment();
 
   const [oldBasketItems, oldTotalAmount] = React.useMemo(() => {
     return [basketItems, totalAmount];

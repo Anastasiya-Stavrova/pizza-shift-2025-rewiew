@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib";
 
-import { Typography } from "../../components/shared/typography";
+import { Typography } from "@/components";
 
 interface NavLinkProps {
   children: React.ReactNode;
