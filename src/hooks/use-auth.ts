@@ -4,25 +4,11 @@ import { useShallow } from "zustand/react/shallow";
 import { useAuthStore } from "@/store";
 
 export const useAuth = () => {
-  const { authToken, user, updateUser, signin, logout } = useAuthStore(
-    useShallow(state => ({
-      authToken: state.authToken,
-      user: state.user,
-      updateUser: state.updateUser,
-      signin: state.signin,
-      logout: state.logout,
-    }))
-  );
+  const authState = useAuthStore(useShallow(state => state));
 
   React.useEffect(() => {
-    updateUser();
+    authState.updateUser();
   }, []);
 
-  return {
-    authToken,
-    user,
-    updateUser,
-    signin,
-    logout,
-  };
+  return authState;
 };

@@ -2,18 +2,27 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { getBasketItemDetails } from "@/helpers";
-import { useBasket } from "@/hooks";
-import { useOrders } from "@/app/orders/_hooks";
-import { usePayment } from "../_hooks";
+import { useBasketStore } from "@/store";
+import { useOrdersStore } from "@/app/orders/_store";
+import { usePaymentStore } from "../_store";
 
 import { Button, InfoCard, Typography } from "@/components";
 
 export const Receipt = () => {
-  const { basketItems, totalAmount, clearBasket } = useBasket();
-  const { setCurrentStage: setOrderStage } = useOrders();
-  const { userData } = usePayment();
+  const { basketItems, totalAmount, clearBasket } = useBasketStore(
+    useShallow(state => ({
+      basketItems: state.basketItems,
+      totalAmount: state.totalAmount,
+      clearBasket: state.clearBasket,
+    }))
+  );
+  const { setOrderStage } = useOrdersStore(
+    useShallow(state => ({ setOrderStage: state.setCurrentStage }))
+  );
+  const userData = usePaymentStore(useShallow(state => state.userData));
 
   const [oldBasketItems, oldTotalAmount] = React.useMemo(() => {
     return [basketItems, totalAmount];

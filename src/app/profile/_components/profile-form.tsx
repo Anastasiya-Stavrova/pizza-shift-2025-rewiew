@@ -144,18 +144,20 @@ export const ProfileForm = () => {
         </form>
       </FormProvider>
 
-      <QuestionModal
-        exitButtonText="Выйти"
-        question="Вы точно хотите выйти?"
-        isOpen={isOpenDialog}
-        onClickAgree={toggleDialog}
-        onClickOpenChange={toggleDialog}
-        onClickExit={() => {
-          logout();
-          router.replace(ROUTES.ROOT);
-          router.refresh();
-        }}
-      />
+      {isOpenDialog && (
+        <QuestionModal
+          exitButtonText="Выйти"
+          question="Вы точно хотите выйти?"
+          isOpen={isOpenDialog}
+          onClickAgree={toggleDialog}
+          onClickOpenChange={toggleDialog}
+          onClickExit={() => {
+            logout();
+            router.replace(ROUTES.ROOT);
+            router.refresh();
+          }}
+        />
+      )}
 
       {submitting && <Loader />}
     </>

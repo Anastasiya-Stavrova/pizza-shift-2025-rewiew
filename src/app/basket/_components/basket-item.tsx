@@ -2,10 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
+import { useShallow } from "zustand/react/shallow";
 import { X } from "lucide-react";
 
-import { BasketItemState } from "@/store";
-import { useBasket } from "@/hooks";
+import { BasketItemState, useBasketStore } from "@/store";
 import { getBasketItemDetails } from "@/helpers";
 
 import { Button, PizzaModal, Typography } from "@/components";
@@ -13,8 +13,13 @@ import { CountButton } from ".";
 
 export const BasketItem = ({ item }: { item: BasketItemState }) => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
-  console.log("BasketItem Render");
-  const { removeBasketItem, updateItemQuantity } = useBasket();
+
+  const { removeBasketItem, updateItemQuantity } = useBasketStore(
+    useShallow(state => ({
+      removeBasketItem: state.removeBasketItem,
+      updateItemQuantity: state.updateItemQuantity,
+    }))
+  );
 
   const toggleDialog = () => {
     setIsOpenDialog(!isOpenDialog);
@@ -107,12 +112,14 @@ export const BasketItem = ({ item }: { item: BasketItemState }) => {
         </div>
       </div>
 
-      <PizzaModal
-        isOpen={isOpenDialog}
-        pizza={item[0]}
-        item={item[1]}
-        onClickOpenChange={toggleDialog}
-      />
+      {isOpenDialog && (
+        <PizzaModal
+          isOpen={isOpenDialog}
+          pizza={item[0]}
+          item={item[1]}
+          onClickOpenChange={toggleDialog}
+        />
+      )}
     </>
   );
 };

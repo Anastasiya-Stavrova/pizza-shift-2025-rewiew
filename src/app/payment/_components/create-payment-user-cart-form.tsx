@@ -1,11 +1,12 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useShallow } from "zustand/react/shallow";
 
 import { usePostPizzaPaymentMutation } from "@/api";
-import { useBasket } from "@/hooks";
+import { useBasketStore } from "@/store";
 import { getNumbers } from "@/helpers";
-import { usePayment } from "../_hooks";
+import { usePaymentStore } from "../_store";
 import { getOrderedPizzas } from "../_helpers";
 import {
   paymentUserCartSchema,
@@ -19,8 +20,13 @@ export const CreatePaymentUserCartForm = () => {
 
   const postPizzaPaymentMutation = usePostPizzaPaymentMutation();
 
-  const { userData, setCurrentStage } = usePayment();
-  const { basketItems } = useBasket();
+  const { userData, setCurrentStage } = usePaymentStore(
+    useShallow(state => ({
+      userData: state.userData,
+      setCurrentStage: state.setCurrentStage,
+    }))
+  );
+  const basketItems = useBasketStore(useShallow(state => state.basketItems));
 
   const form = useForm<PaymentUserCartSchemaFields>({
     resolver: zodResolver(paymentUserCartSchema),

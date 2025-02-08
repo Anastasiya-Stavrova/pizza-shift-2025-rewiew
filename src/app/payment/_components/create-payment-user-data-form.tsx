@@ -3,10 +3,11 @@
 import { useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useShallow } from "zustand/react/shallow";
 
 import { formatPhone } from "@/helpers";
 import { useAuth } from "@/hooks";
-import { usePayment } from "../_hooks";
+import { usePaymentStore } from "../_store";
 import {
   paymentUserDataSchema,
   PaymentUserDataSchemaFields,
@@ -22,7 +23,13 @@ import {
 } from "@/components";
 
 export const CreatePaymentUserDataForm = () => {
-  const { userData, setUserData, setCurrentStage } = usePayment();
+  const { userData, setUserData, setCurrentStage } = usePaymentStore(
+    useShallow(state => ({
+      userData: state.userData,
+      setUserData: state.setUserData,
+      setCurrentStage: state.setCurrentStage,
+    }))
+  );
   const { user } = useAuth();
 
   const router = useRouter();
@@ -84,6 +91,7 @@ export const CreatePaymentUserDataForm = () => {
               label="Номер телефона"
               type="phone"
               placeholder="Телефон"
+              disabled
               required
             />
 

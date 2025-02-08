@@ -10,7 +10,7 @@ import { Button, PizzaModal, Typography } from "@/components";
 
 export const PizzaCard = ({ pizza }: { pizza: Pizza }) => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
-  console.log("PizzaCard Render");
+
   const isSmallDevice = useMedia("(max-width: 640px)", true);
 
   const toggleDialog = () => {
@@ -89,11 +89,13 @@ export const PizzaCard = ({ pizza }: { pizza: Pizza }) => {
         )}
       </div>
 
-      <PizzaModal
-        isOpen={isOpenDialog}
-        pizza={pizza}
-        onClickOpenChange={toggleDialog}
-      />
+      {isOpenDialog && (
+        <PizzaModal
+          isOpen={isOpenDialog}
+          pizza={pizza}
+          onClickOpenChange={toggleDialog}
+        />
+      )}
     </>
   );
 };

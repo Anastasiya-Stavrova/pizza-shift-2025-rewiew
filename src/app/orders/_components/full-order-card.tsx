@@ -2,12 +2,13 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   useGetPizzaCatalogQuery,
   usePutPizzaOrdersCancelMutation,
 } from "@/api";
-import { useBasket } from "@/hooks";
+import { useBasketStore } from "@/store";
 import { calcTotalPizzaPrice } from "@/helpers";
 import { mapPizzaSizeToNumber } from "@/constants";
 import { getOrderDetails } from "../_helpers";
@@ -39,7 +40,12 @@ export const FullOrderCard = ({
   const [submitting, setSubmitting] = React.useState(false);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
-  const { clearBasket, addBasketItem } = useBasket();
+  const { clearBasket, addBasketItem } = useBasketStore(
+    useShallow(state => ({
+      clearBasket: state.clearBasket,
+      addBasketItem: state.addBasketItem,
+    }))
+  );
 
   const putPizzaOrdersCancelMutation = usePutPizzaOrdersCancelMutation();
   const { data, error } = useGetPizzaCatalogQuery();
@@ -166,15 +172,17 @@ export const FullOrderCard = ({
         )}
       </InfoCard>
 
-      <QuestionModal
-        exitButtonText="Не отменять"
-        question="Отменить заказ?"
-        isOpen={isOpenDialog}
-        submitting={submitting}
-        onClickAgree={onClickCancelOrder}
-        onClickOpenChange={toggleDialog}
-        onClickExit={toggleDialog}
-      />
+      {isOpenDialog && (
+        <QuestionModal
+          exitButtonText="Не отменять"
+          question="Отменить заказ?"
+          isOpen={isOpenDialog}
+          submitting={submitting}
+          onClickAgree={onClickCancelOrder}
+          onClickOpenChange={toggleDialog}
+          onClickExit={toggleDialog}
+        />
+      )}
 
       {submitting && <Loader />}
     </>

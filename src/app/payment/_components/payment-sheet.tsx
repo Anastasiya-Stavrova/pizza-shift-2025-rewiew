@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useShallow } from "zustand/react/shallow";
 
 import { ICONS } from "@/constants";
-import { usePayment } from "../_hooks";
+import { usePaymentStore } from "../_store";
 
 import { Typography } from "@/components";
 import {
@@ -14,7 +15,12 @@ import {
 } from ".";
 
 export const PaymentSheet = () => {
-  const { currentStage, setCurrentStage } = usePayment();
+  const { currentStage, setCurrentStage } = usePaymentStore(
+    useShallow(state => ({
+      currentStage: state.currentStage,
+      setCurrentStage: state.setCurrentStage,
+    }))
+  );
 
   const router = useRouter();
 

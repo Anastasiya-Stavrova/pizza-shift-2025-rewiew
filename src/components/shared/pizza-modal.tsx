@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+import { useShallow } from "zustand/react/shallow";
 import toast from "react-hot-toast";
 import { useMedia } from "react-use";
 
-import { BasketItem, BasketItemState } from "@/store";
-import { useAuth, useBasket, usePizzaOptions } from "@/hooks";
+import { BasketItem, BasketItemState, useBasketStore } from "@/store";
+import { useAuth, usePizzaOptions } from "@/hooks";
 import { capitalizeFirstLetter, getPizzaIngredientsDetails } from "@/helpers";
 import {
   mapPizzaSizeToNumber,
@@ -45,10 +46,16 @@ export const PizzaModal = ({
   isOpen,
   onClickOpenChange,
 }: PizzaModalProps) => {
+  const { addBasketItem, updateSelectedItem } = useBasketStore(
+    useShallow(state => ({
+      addBasketItem: state.addBasketItem,
+      updateSelectedItem: state.updateSelectedItem,
+    }))
+  );
   const { authToken } = useAuth();
-  const { addBasketItem, updateSelectedItem } = useBasket();
+
   const { states, functions } = usePizzaOptions(pizza, item);
-  console.log("PizzaModal Render");
+
   const isSmallDevice = useMedia("(max-width: 768px)", true);
 
   const handleClickAdd = () => {
@@ -145,7 +152,12 @@ export const PizzaModal = ({
               />
             </div>
 
-            <div className="w-full h-full flex flex-col gap-6 p-4 items-center justify-between mt-8 overflow-y-auto scrollbar">
+            <div
+              className={
+                "w-full h-full flex flex-col gap-6 p-4 items-center justify-between " +
+                "mt-8 overflow-y-auto scrollbar"
+              }
+            >
               <div className="flex flex-col gap-6 w-full px-4">
                 <div className="flex flex-col gap-2">
                   <div className="w-full flex gap-3 items-center justify-between">
@@ -214,7 +226,7 @@ export const PizzaModal = ({
             <div className="w-full h-full max-h-[128px] shadow-lg shadow-black/5 bg-background py-4 flex justify-center">
               <Button
                 onClick={() => handleClickAdd()}
-                className="w-[80%] max-w-[350px]"
+                className="w-[90%] max-w-[350px] text-sm"
               >
                 {item
                   ? `Изменить выбранный товар за ${states.totalPrice} ₽`

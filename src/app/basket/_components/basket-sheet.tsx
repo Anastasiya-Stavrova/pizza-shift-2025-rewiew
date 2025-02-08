@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 import toast from "react-hot-toast";
 
-import { useBasket } from "@/hooks";
+import { useBasketStore } from "@/store";
 import { ICONS, ROUTES } from "@/constants";
 import { usePaymentStore } from "@/app/payment/_store";
 
@@ -12,8 +13,13 @@ import { BasketItem } from ".";
 
 export const BasketSheet = () => {
   const resetStage = usePaymentStore(state => state.resetStage);
-  const { totalAmount, basketItems } = useBasket();
-  console.log("BasketSheet Render");
+  const { totalAmount, basketItems } = useBasketStore(
+    useShallow(state => ({
+      totalAmount: state.totalAmount,
+      basketItems: state.basketItems,
+    }))
+  );
+
   const router = useRouter();
 
   const PaymentButton = () => {
