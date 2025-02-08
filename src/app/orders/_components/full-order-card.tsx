@@ -2,13 +2,20 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
+import {
+  useGetPizzaCatalogQuery,
+  usePutPizzaOrdersCancelMutation,
+} from "@/api";
+import { useBasketStore } from "@/store";
+import { calcTotalPizzaPrice } from "@/helpers";
+import { mapPizzaSizeToNumber } from "@/constants";
 import { getOrderDetails } from "../_helpers";
 import {
   mapOrderStatusToColor,
   mapOrderStatusToDescription,
 } from "../_constants";
-import { PartialOrderCardProps } from "./partial-order-card";
 
 import {
   Button,
@@ -17,7 +24,7 @@ import {
   QuestionModal,
   Typography,
 } from "@/components";
-import { usePutPizzaOrdersCancelMutation } from "@/api";
+import { PartialOrderCardProps } from "./partial-order-card";
 
 type FullOrderCardProps = PartialOrderCardProps & {
   isSpecificOrder?: boolean;
@@ -33,7 +40,15 @@ export const FullOrderCard = ({
   const [submitting, setSubmitting] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
+  const { clearBasket, addBasketItem } = useBasketStore(
+    useShallow(state => ({
+      clearBasket: state.clearBasket,
+      addBasketItem: state.addBasketItem,
+    }))
+  );
+
   const putPizzaOrdersCancelMutation = usePutPizzaOrdersCancelMutation();
+  const { data, error } = useGetPizzaCatalogQuery();
 
   const { orderAddress, orderStructure, totalAmount } = getOrderDetails(
     address,
@@ -47,7 +62,7 @@ export const FullOrderCard = ({
     setIsOpenDialog(!isOpenDialog);
   };
 
-  const cancelOrder = async () => {
+  const onClickCancelOrder = async () => {
     setSubmitting(true);
 
     try {
@@ -59,6 +74,43 @@ export const FullOrderCard = ({
       setSubmitting(false);
       toggleDialog();
     }
+  };
+
+  const onClickReorder = () => {
+    clearBasket();
+
+    if (error) {
+      return;
+    }
+
+    pizzas.forEach(orderedPizza => {
+      const similarPizza = data?.data.catalog.find(
+        pizza => pizza.id === orderedPizza.id
+      )!;
+
+      const selectedToppings = orderedPizza.toppings.map(
+        topping => topping.name
+      );
+
+      addBasketItem([
+        similarPizza,
+        {
+          name: orderedPizza.name,
+          pizzaSize: mapPizzaSizeToNumber[orderedPizza.size.name],
+          quantity: 1,
+          toppings: selectedToppings,
+          price: calcTotalPizzaPrice(
+            similarPizza.sizes.find(
+              size => size.name === orderedPizza.size.name
+            )!,
+            similarPizza.toppings,
+            new Set(selectedToppings)
+          ),
+        },
+      ]);
+    });
+
+    router.push("/basket");
   };
 
   return (
@@ -108,7 +160,8 @@ export const FullOrderCard = ({
               Назад
             </Button>
             <Button
-              className="w-full sm:max-w-[200px]" /* onClick={onClickReorder} */
+              className="w-full sm:max-w-[200px]"
+              onClick={onClickReorder}
             >
               Повторить заказ
             </Button>
@@ -125,7 +178,7 @@ export const FullOrderCard = ({
         question="Отменить заказ?"
         isOpen={isOpenDialog}
         submitting={submitting}
-        onClickAgree={cancelOrder}
+        onClickAgree={onClickCancelOrder}
         onClickOpenChange={toggleDialog}
         onClickExit={toggleDialog}
       />

@@ -6,12 +6,14 @@ import React from "react";
 
 import { useBasketStore } from "@/store";
 import { getBasketItemDetails } from "@/helpers";
+import { useOrdersStore } from "@/app/orders/_store";
+import { usePaymentStore } from "../_store";
 
 import { Button, InfoCard, Typography } from "@/components";
-import { usePaymentStore } from "../_store";
 
 export const Receipt = () => {
   const userData = usePaymentStore(state => state.userData);
+  const setOrderStage = useOrdersStore(state => state.setCurrentStage);
   const { basketItems, totalAmount, clearBasket } = useBasketStore(
     useShallow(state => ({
       basketItems: state.basketItems,
@@ -66,7 +68,13 @@ export const Receipt = () => {
       </InfoCard>
 
       <div className="flex gap-6 py-4 w-full max-w-[368px] flex-col sm:flex-row mx-auto sm:mx-0">
-        <Button variant="secondary" onClick={() => router.replace("/orders")}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setOrderStage("ACTIVE");
+            router.replace("/orders");
+          }}
+        >
           Детали заказа
         </Button>
         <Button onClick={() => router.replace("/")}>На главную</Button>
