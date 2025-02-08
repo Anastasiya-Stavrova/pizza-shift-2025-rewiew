@@ -1,4 +1,10 @@
+import { Metadata } from "next";
+
 import { BasketSheet } from "./_components";
+
+export const metadata: Metadata = {
+  title: "ШИФТ PIZZA | Корзина",
+};
 
 export default async function BasketPage() {
   return (

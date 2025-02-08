@@ -1,4 +1,10 @@
+import { Metadata } from "next";
+
 import { PaymentSheet } from "./_components";
+
+export const metadata: Metadata = {
+  title: "ШИФТ PIZZA | Оплата",
+};
 
 export default async function PaymentPage() {
   return (

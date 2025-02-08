@@ -128,7 +128,7 @@ type PizzasResponse = BaseResponse & {
 };
 
 type PizzaPaymentResponse = BaseResponse & {
-  oreder: PizzaOrder;
+  order: PizzaOrder;
 };
 
 type PizzaOrdersResponse = BaseResponse & {

@@ -1,5 +1,11 @@
+import { Metadata } from "next";
+
 import { Typography } from "@/components";
 import { ProfileForm } from "./_components";
+
+export const metadata: Metadata = {
+  title: "ШИФТ PIZZA | Профиль",
+};
 
 export default async function ProfilePage() {
   return (

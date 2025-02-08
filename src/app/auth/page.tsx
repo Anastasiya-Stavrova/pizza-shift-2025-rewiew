@@ -1,5 +1,11 @@
+import { Metadata } from "next";
+
 import { Typography } from "@/components";
 import { AuthForm } from "./_components";
+
+export const metadata: Metadata = {
+  title: "ШИФТ PIZZA | Авторизация",
+};
 
 export default async function AuthPage() {
   return (
