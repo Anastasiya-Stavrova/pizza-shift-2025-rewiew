@@ -4,14 +4,14 @@ import { getCookie, isSSR } from "@/utils";
 import { COOKIES } from "@/constants";
 
 export const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.API_URL || process.env.NEXT_PUBLIC_API_URL,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
 });
 
-instance.interceptors.request.use(async config => {
+instance.interceptors.request.use(async (config) => {
   let token: string | undefined;
   if (isSSR) {
     const cookies = (await import("next/headers")).cookies;
